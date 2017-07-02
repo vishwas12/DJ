@@ -9,4 +9,5 @@ public interface BookingDao {
 	public void bookBand(User user);
 	public boolean cancelBooking(int bookingId);
 	public List<BookingHistory> viewBooking(User user);
+	public List<User> viewBandDetails(String location, String category);
 }

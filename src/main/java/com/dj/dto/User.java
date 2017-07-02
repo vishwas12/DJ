@@ -18,11 +18,12 @@ public class User {
 	private String deviceId;
 	private UserType userType;
 	private String userTypeVal;
-	private List<UserMusicCategory> userMusicCategory;
-	private List<UserMusicCollection> userMusicCollection;
+	private List<UserCategory> userCategory;
+	private List<UserDataCollection> userDataCollection;
 	private PricingDetails pricingDetails;
 	private List<BookingHistory> bookingHistory;
 	private List<UserLocality> userLocality;
+	private List<Review> reviews;
 	
 	
 	
@@ -38,19 +39,14 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public List<UserMusicCategory> getUserMusicCategory() {
-		return userMusicCategory;
-	}
-	public void setUserMusicCategory(List<UserMusicCategory> userMusicCategory) {
-		this.userMusicCategory = userMusicCategory;
-	}
-	public List<UserMusicCollection> getUserMusicCollection() {
-		return userMusicCollection;
-	}
-	public void setUserMusicCollection(List<UserMusicCollection> userMusicCollection) {
-		this.userMusicCollection = userMusicCollection;
-	}
-	public List<BookingHistory> getBookingHistory() {
+	
+	public List<UserDataCollection> getUserDataCollection() {
+        return userDataCollection;
+    }
+    public void setUserDataCollection(List<UserDataCollection> userDataCollection) {
+        this.userDataCollection = userDataCollection;
+    }
+    public List<BookingHistory> getBookingHistory() {
 		return bookingHistory;
 	}
 	public void setBookingHistory(List<BookingHistory> bookingHistory) {
@@ -150,4 +146,24 @@ public class User {
 	public void validate(){
 		
 	}
+    public List<UserCategory> getUserCategory() {
+        return userCategory;
+    }
+    public void setUserCategory(List<UserCategory> userCategory) {
+        this.userCategory = userCategory;
+    }
+    public List<Review> getReviews() {
+        return reviews;
+    }
+    @Override
+    public String toString() {
+        return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", userAddress=" + userAddress + ", email=" + email + ", password=" + password + ", mobileNumber=" + mobileNumber
+                        + ", status=" + status + ", createdOn=" + createdOn + ", createdBy=" + createdBy + ", accessToken=" + accessToken + ", deviceId=" + deviceId + ", userType=" + userType + ", userTypeVal="
+                        + userTypeVal + ", userCategory=" + userCategory + ", userDataCollection=" + userDataCollection + ", pricingDetails=" + pricingDetails + ", bookingHistory=" + bookingHistory + ", userLocality="
+                        + userLocality + ", reviews=" + reviews + "]";
+    }
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+	
 }
