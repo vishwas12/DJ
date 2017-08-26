@@ -9,10 +9,12 @@ import org.springframework.stereotype.Service;
 import com.dj.application.exception.CustomGenericException;
 import com.dj.dao.ApplicationDao;
 import com.dj.dao.UserDao;
+import com.dj.dto.Mail;
 import com.dj.dto.MusicType;
 import com.dj.dto.User;
 import com.dj.dto.UserType;
 import com.dj.service.UserService;
+import com.dj.utils.Mailer;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -22,7 +24,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	ApplicationDao applicationDao;
-
+	
 	@Override
 	public User getUserByAccessToken(String accessToken) {
 		return userDao.getUserByAccessToken(accessToken);
@@ -39,6 +41,7 @@ public class UserServiceImpl implements UserService {
 			UserType userType = applicationDao.getUserType(user.getUserTypeVal());
 			user.setUserType(userType);
 			userDao.registerUser(user);
+			
 		}
 		else{
 			throw new CustomGenericException("Email Already Taken", HttpStatus.BAD_REQUEST);
