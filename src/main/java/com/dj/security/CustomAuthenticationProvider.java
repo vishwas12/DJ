@@ -10,7 +10,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.common.OAuth2RefreshToken;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 
 import com.dj.dto.User;
 import com.dj.service.UserService;
@@ -19,6 +24,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	TokenStore authStore;
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -50,6 +58,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	public boolean supports(Class<?> authentication) {
 		// TODO Auto-generated method stub
 		return authentication.equals(UsernamePasswordAuthenticationToken.class);
+	}
+	
+	public void logoutUser() throws AuthenticationException{
+		OAuth2Authentication a = (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
+		OAuth2AccessToken accessToken = authStore.getAccessToken(a);
+		authStore.removeAccessToken(accessToken);
+		OAuth2RefreshToken refreshToken = accessToken.getRefreshToken();
+		authStore.removeRefreshToken(refreshToken);
 	}
 
 }

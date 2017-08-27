@@ -1,10 +1,10 @@
 package com.dj.controller;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.lang.reflect.Type;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,16 +21,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dj.application.exception.CustomGenericException;
-import com.dj.dto.Mail;
 import com.dj.dto.MusicType;
 import com.dj.dto.SearchResults;
 import com.dj.dto.UiData;
 import com.dj.dto.User;
+import com.dj.security.OAuthSession;
 import com.dj.service.BookingService;
 import com.dj.service.UserService;
 import com.dj.utils.Mailer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.kontrolscan.dto.AuthUser;
 
 @RestController
 @RequestMapping(value="/user")
@@ -47,6 +48,9 @@ public class ApplicationController {
 	
 	@Autowired
 	Mailer mailer;
+	
+	@Autowired
+	OAuthSession oAuthSession;
 	
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -98,6 +102,9 @@ public class ApplicationController {
 	
 	@RequestMapping(value = "/getAllMusicTypes", method = RequestMethod.POST)
 	public ResponseEntity<UiData> getAllMusicTypes(){
+		User user = oAuthSession.getAuthUser();
+		//validate user (can be handled via annotation)
+		
 		Map<String, String> map = new HashMap<String, String>();
 		List<MusicType> list = new ArrayList<MusicType>();
 		list = userService.getAllMusicTypes();
