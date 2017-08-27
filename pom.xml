@@ -75,6 +75,11 @@
 	        <artifactId>spring-security-config</artifactId>
 	        <version>${spring.security.version}</version>
     	</dependency>
+    	<dependency>
+    		<groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+            <version>2.0.12.RELEASE</version>
+    	</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
@@ -191,6 +196,11 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.9</version>
 		</dependency>
+		<dependency>
+		    <groupId>org.flywaydb</groupId>
+		    <artifactId>flyway-core</artifactId>
+		    <version>4.2.0</version>
+		</dependency>
 	</dependencies>
 	
 	<profiles>
@@ -227,6 +237,7 @@
 				<directory>src/main/resources/config</directory>
 			</resource>
 		</resources>
+	<pluginManagement>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -235,7 +246,74 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+			
+			
+			   <!-- <plugin>
+			        <groupId>org.codehaus.mojo</groupId>
+			        <artifactId>properties-maven-plugin</artifactId>
+			        <version>1.0.0</version>
+			        <executions>
+			          <execution>
+			            <phase>deploy</phase>
+			            <goals>
+			              <goal>read-project-properties</goal>
+			            </goals>
+			            <configuration>
+			              <urls>
+			                <url>../DJ/profiles/${build.profile.id}/config.properties/</url>
+			              </urls>
+			            </configuration>
+			          </execution>
+			        </executions>
+			      </plugin> -->
+		
+		
+	<!-- mvn flyway:migrate -->	
+	 <plugin>
+	    <groupId>org.flywaydb</groupId>
+		    <artifactId>flyway-maven-plugin</artifactId>
+		    <version>4.2.0</version>
+		    <configuration>
+			    <!-- <driver>../DJ/profiles/${build.profile.id}/config.properties.${db.driver}</driver>
+			    <url>../DJ/profiles/${build.profile.id}/config.properties.${db.url}</url>
+			    <user>../DJ/profiles/${build.profile.id}/config.properties.${db.username}</user>
+			    <password>../DJ/profiles/${build.profile.id}/config.properties.${db.password}</password>
+			    <locations>
+			        <location>classpath:migrations1</location>
+			        <location>migrations2</location>
+			        <location>filesystem:/sql-migrations</location>
+			    </locations>
+			    <sqlMigrationSeparator>__</sqlMigrationSeparator>
+			    <encoding>ISO-8859-1</encoding>
+			    <placeholderReplacement>true</placeholderReplacement>
+			    <placeholders>
+			        <aplaceholder>value</aplaceholder>
+			        <otherplaceholder>value123</otherplaceholder>
+			    </placeholders>
+			    <placeholderPrefix>#[</placeholderPrefix>
+			    <placeholderSuffix>]</placeholderSuffix>
+			    <skipDefaultResolvers>false</skipDefaultResolvers>
+			    <skipDefaultCallbacks>false</skipDefaultCallbacks>
+			    <target>1.1</target>
+			    <outOfOrder>false</outOfOrder>
+			    <validateOnMigrate>true</validateOnMigrate>
+			    <cleanOnValidationError>false</cleanOnValidationError>
+			    <mixed>false</mixed>
+			    <group>false</group>
+			    <ignoreMissingMigrations>false</ignoreMissingMigrations>
+			    <ignoreFutureMigrations>false</ignoreFutureMigrations>
+			    <cleanDisabled>false</cleanDisabled>
+			    <baselineOnMigrate>false</baselineOnMigrate>
+			    <baselineVersion>5</baselineVersion>
+			    <baselineDescription>Let's go!</baselineDescription>
+			    <installedBy>${ENVIRONMENT}</installedBy>
+			    <skip>false</skip> -->
+			    <configFile>profiles/${build.profile.id}/config.properties</configFile>
+			    
+			</configuration>
+		</plugin> 
 		</plugins>
+	</pluginManagement>
 		<finalName>DJ</finalName>
 	</build>
 </project>
