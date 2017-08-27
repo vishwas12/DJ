@@ -31,7 +31,6 @@ import com.dj.service.UserService;
 import com.dj.utils.Mailer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.kontrolscan.dto.AuthUser;
 
 @RestController
 @RequestMapping(value="/user")
