@@ -48,6 +48,7 @@ public class ApplicationController {
 	@Autowired
 	Mailer mailer;
 	
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<UiData> loginUser(HttpServletRequest request){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -72,21 +73,26 @@ public class ApplicationController {
 		//userService.logout(accessToken);
 		UiData data = new UiData();
 		//Mailer m =  new Mailer();
-		Mail mail =  new Mail();
-		mail.setMailTo("ahuja.sagar14@gmail.com");
-		mail.setTemplateName("velocity_mailTemplate");
-		mail.setMailFrom("ahuja.sagar14@gmail.com");
-		mail.setMailSubject("Test");
-		mailer.sendMail(mail);
+		User user =  new User();
+		user.setFirstName("Dummy Name");
+		user.setEmail("ahuja.sagar14@gmail.com");
+		mailer.sendEmail(user);
 		data.setMessage("User Logged Out");
 		return new ResponseEntity<UiData>(data , HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
 	public ResponseEntity<UiData> registerUser(@RequestBody User user){
-		userService.registerUser(user);
 		UiData data = new UiData();
-		data.setMessage("User Registered");
+		try {
+			userService.registerUser(user);
+			data.setMessage("User Registered");
+		}
+		catch(Exception e) {
+			data.setMessage("ERROR");
+			return new ResponseEntity<UiData>(data , HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
 		return new ResponseEntity<UiData>(data , HttpStatus.OK);
 	}
 	

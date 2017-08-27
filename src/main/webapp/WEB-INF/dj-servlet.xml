@@ -13,6 +13,6 @@
 	<context:component-scan base-package="com.dj" />
 	<mvc:annotation-driven />
 	
-	<import resource="classpath:application-config.xml" />
+	<import resource="classpath:/config/application-config.xml" />
 	
 </beans>

@@ -1,7 +1,11 @@
 <html>
  
     <body>
-        <h3>Dear ${user.firstName}, thank you for placing order.</h3>
-        <span>Sent using FreeMarker Template</span>
+        <h3>Dear ${user.firstName}, 
+        <br/>Thank you for registering with ${companyName}.</h3>
+        <span> <a href= "http://google.co.in" target="_blank">Click here to verify your account </a> </span>
+        
+        <h3>Regards, <br/>
+        Team ${companyName}</h3>
     </body>
 </html>

@@ -3,6 +3,7 @@ package com.dj.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	ApplicationDao applicationDao;
 	
+	@Autowired
+	Mailer mailer;
+	
 	@Override
 	public User getUserByAccessToken(String accessToken) {
 		return userDao.getUserByAccessToken(accessToken);
@@ -41,6 +45,7 @@ public class UserServiceImpl implements UserService {
 			UserType userType = applicationDao.getUserType(user.getUserTypeVal());
 			user.setUserType(userType);
 			userDao.registerUser(user);
+			mailer.sendEmail(user);
 			
 		}
 		else{
