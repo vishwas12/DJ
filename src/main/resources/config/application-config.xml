@@ -26,7 +26,7 @@
 		</property>
 	</bean> -->
 	<import resource="datasource-config.xml" />
-	<import resource="spring-security.xml" />
+	<import resource="security/spring-security.xml" />
 	<import resource="email-config.xml" />
 	<!-- <import resource="quartz.xml" /> -->
 </beans>
