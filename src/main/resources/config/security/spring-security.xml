@@ -8,6 +8,8 @@
                     http://www.springframework.org/schema/beans/spring-beans.xsd
                     http://www.springframework.org/schema/security
                     http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+                    
+    <security:http  pattern="/user/register*" security="none" ></security:http >
 
 
     <http pattern="/oauth/token" create-session="stateless"
@@ -24,12 +26,12 @@
     <!-- The OAuth2 protected resources are separated out into their own block 
         so we can deal with authorization and error handling separately. This isn't 
         mandatory, but it makes it easier to control the behaviour. -->
-    <http pattern="/test/*" create-session="never"
+    <http pattern="/**" create-session="never"
         entry-point-ref="oauthAuthenticationEntryPoint"
         access-decision-manager-ref="accessDecisionManager"
         xmlns="http://www.springframework.org/schema/security">
         <anonymous enabled="false" />
-        <intercept-url pattern="/test/*" access="ROLE_USER" />
+        <intercept-url pattern="/**" access="ROLE_USER" />
         <custom-filter ref="resourceServerFilter" before="PRE_AUTH_FILTER" />
         <access-denied-handler ref="oauthAccessDeniedHandler" />
     </http>
