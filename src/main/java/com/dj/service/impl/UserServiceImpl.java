@@ -62,6 +62,11 @@ public class UserServiceImpl implements UserService {
 	public List<User> getMusicians(List<MusicType> musicTypes) {
 		return null;
 	}
+
+	@Override
+	public User getUserByUsername(String username) {
+		return userDao.getUserByUsername(username);
+	}
 	
 
 }

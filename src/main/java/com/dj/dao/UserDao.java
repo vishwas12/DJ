@@ -14,4 +14,5 @@ public interface UserDao {
 	public boolean emailValidate(String email);
 	public List<MusicType> getAllMusicTypes();
 	public List<User> getMusicians(List<MusicType> musicTypes);
+	public User getUserByUsername(String username); 
 }

@@ -8,6 +8,7 @@ import com.dj.dto.User;
 public interface UserService {
 	
 	public User getUserByAccessToken(String accessToken);
+	public User getUserByUsername(String username);
 	public boolean logout(String accessToken);
 	public void registerUser(User user);
 	public List<MusicType> getAllMusicTypes();

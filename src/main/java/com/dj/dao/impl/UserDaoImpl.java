@@ -158,4 +158,20 @@ public class UserDaoImpl extends JdbcDaoSupport implements UserDao{
 		return list;
 	}
 
+	@Override
+	public User getUserByUsername(String username) {
+		// TODO Auto-generated method stub
+		User user = null;
+		try{
+			String query = "select * from user where email=?";
+			user = getJdbcTemplate().queryForObject(query.toString(), new BeanPropertyRowMapper<User>(User.class),username);
+		}catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		if(user==null){
+			throw new CustomGenericException("Invalid Login Credentials", HttpStatus.UNAUTHORIZED);
+		}
+		return user;
+	}
+
 }
