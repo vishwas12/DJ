@@ -12,8 +12,8 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
-	<context:annotation-config />
-	<context:component-scan base-package="com.dj" />
+	<!-- <context:annotation-config />
+	<context:component-scan base-package="com.dj" /> -->
 	<bean id="gson" class="com.google.gson.Gson" />
 	<context:property-placeholder
 		location="classpath:/config/application.properties" />

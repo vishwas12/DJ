@@ -56,7 +56,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         }else{
         	List<GrantedAuthority> grantedAuths = new ArrayList<>();
         	//fetch user roles from database
-            grantedAuths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));    
+            grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));    
             Authentication auth = new UsernamePasswordAuthenticationToken(user, password, grantedAuths);
             
     		return auth;

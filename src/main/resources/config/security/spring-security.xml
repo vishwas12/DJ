@@ -105,9 +105,11 @@
       <oauth:refresh-token />
       <oauth:password />
      </oauth:authorization-server>
+     
+     <bean id="tokenExtractor" class="com.dj.security.CustomBearerTokenExtractor" />
 
-    <oauth:resource-server id="resourceServerFilter"
-        resource-id="test" token-services-ref="tokenServices" />
+    <oauth:resource-server id="resourceServerFilter" resource-id="test"
+         token-services-ref="tokenServices" token-extractor-ref="tokenExtractor"/>
     <oauth:client-details-service id="clientDetails">
         <oauth:client client-id="the_client"
             authorized-grant-types="password,refresh_token"
