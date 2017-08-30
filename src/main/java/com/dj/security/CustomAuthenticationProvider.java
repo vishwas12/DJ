@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,18 +17,20 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.stereotype.Component;
 
 import com.dj.application.exception.CustomGenericException;
 import com.dj.dto.User;
 import com.dj.service.UserService;
 
+@Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 	
 	@Autowired
 	UserService userService;
 	
-	@Autowired
-	TokenStore authStore;
+	/*@Autowired
+	TokenStore authStore;*/
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -56,7 +57,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         }else{
         	List<GrantedAuthority> grantedAuths = new ArrayList<>();
         	//fetch user roles from database
-            grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));    
+        	List<String> roles = new ArrayList<String>();
+        	roles.add("ROLE_USER");
+            grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
+            user.setRoles(roles);
             Authentication auth = new UsernamePasswordAuthenticationToken(user, password, grantedAuths);
             
     		return auth;
@@ -69,12 +73,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		return authentication.equals(UsernamePasswordAuthenticationToken.class);
 	}
 	
-	public void logoutUser() throws AuthenticationException{
+	/*public void logoutUser() throws AuthenticationException{
 		OAuth2Authentication a = (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
 		OAuth2AccessToken accessToken = authStore.getAccessToken(a);
 		authStore.removeAccessToken(accessToken);
 		OAuth2RefreshToken refreshToken = accessToken.getRefreshToken();
 		authStore.removeRefreshToken(refreshToken);
-	}
+	}*/
 
 }

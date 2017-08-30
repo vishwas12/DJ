@@ -1,9 +1,14 @@
 package com.dj.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class User {
+public class User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int userId;
 	private String firstName;
 	private String lastName;
@@ -24,6 +29,7 @@ public class User {
 	private List<BookingHistory> bookingHistory;
 	private List<UserLocality> userLocality;
 	private List<Review> reviews;
+	private List<String> roles;
 	
 	
 	
@@ -155,7 +161,14 @@ public class User {
     public List<Review> getReviews() {
         return reviews;
     }
-    @Override
+    
+    public List<String> getRoles() {
+		return roles;
+	}
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
+	@Override
     public String toString() {
         return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", userAddress=" + userAddress + ", email=" + email + ", password=" + password + ", mobileNumber=" + mobileNumber
                         + ", status=" + status + ", createdOn=" + createdOn + ", createdBy=" + createdBy + ", accessToken=" + accessToken + ", deviceId=" + deviceId + ", userType=" + userType + ", userTypeVal="
