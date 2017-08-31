@@ -25,6 +25,7 @@ import com.dj.dto.MusicType;
 import com.dj.dto.SearchResults;
 import com.dj.dto.UiData;
 import com.dj.dto.User;
+import com.dj.security.CustomAuthenticationProvider;
 import com.dj.security.OAuthSession;
 import com.dj.service.BookingService;
 import com.dj.service.UserService;
@@ -51,6 +52,9 @@ public class ApplicationController {
 	@Autowired
 	OAuthSession oAuthSession;
 	
+	@Autowired
+	CustomAuthenticationProvider customAuthenticationProvider;
+	
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<UiData> loginUser(HttpServletRequest request){
@@ -63,8 +67,8 @@ public class ApplicationController {
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public ResponseEntity<UiData> logout(HttpServletRequest request){
-		String accessToken = request.getHeader("accessToken");
-		userService.logout(accessToken);
+		//String accessToken = request.getHeader("accessToken");
+		customAuthenticationProvider.logoutUser();
 		UiData data = new UiData();
 		data.setMessage("User Logged Out");
 		return new ResponseEntity<UiData>(data , HttpStatus.OK);

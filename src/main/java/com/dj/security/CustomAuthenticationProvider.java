@@ -29,8 +29,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	@Autowired
 	UserService userService;
 	
-	/*@Autowired
-	TokenStore authStore;*/
+	@Autowired
+	TokenStore authStore;
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -73,12 +73,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		return authentication.equals(UsernamePasswordAuthenticationToken.class);
 	}
 	
-	/*public void logoutUser() throws AuthenticationException{
+	public void logoutUser() throws AuthenticationException{
 		OAuth2Authentication a = (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
 		OAuth2AccessToken accessToken = authStore.getAccessToken(a);
 		authStore.removeAccessToken(accessToken);
 		OAuth2RefreshToken refreshToken = accessToken.getRefreshToken();
 		authStore.removeRefreshToken(refreshToken);
-	}*/
+	}
 
 }
