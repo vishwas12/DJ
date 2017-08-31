@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                      http://www.springframework.org/schema/beans/spring-beans.xsd
+					  http://www.springframework.org/schema/security/oauth2
+					  http://www.springframework.org/schema/security/spring-security-oauth2.xsd
+					  http://www.springframework.org/schema/context
+					  http://www.springframework.org/schema/context/spring-context.xsd">
+
+		<oauth:client-details-service id="client-details-service">
+        <oauth:client 
+        		client-id="the_client"
+            authorized-grant-types="password,refresh_token"
+            authorities="ROLE_WEB" 
+            scope="read,write" 
+            secret="secret" 
+            access-token-validity="900"
+            refresh-token-validity="43200"/>
+
+        <oauth:client 
+        		client-id="testclient"
+            authorized-grant-types="password,refresh_token"
+            secret="testsecret" 
+            authorities="ROLE_APP" 
+            scope="read,write" 
+            access-token-validity="900"
+            refresh-token-validity="43200"/>
+
+    </oauth:client-details-service>
+					  	
+</beans>

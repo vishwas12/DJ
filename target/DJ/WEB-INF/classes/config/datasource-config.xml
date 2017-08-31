@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/data/mongo
+      	http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
+      	http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-3.0.xsd
+		http://www.springframework.org/schema/jee 
+        http://www.springframework.org/schema/jee/spring-jee-4.0.xsd">
+
+	<tx:annotation-driven transaction-manager="transactionManager1" />
+	<context:component-scan base-package="com.dj.dao" />
+	
+	<mongo:mongo id="mongo" host="localhost" port="27017"></mongo:mongo>
+	
+	<mongo:db-factory id="mongoDbFactory" dbname="DJ" mongo-ref="mongo" />
+	
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"> 
+	    <constructor-arg ref="mongoDbFactory"/> 
+	</bean>
+	
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+	
+	<mongo:repositories base-package="com.dj.dao" mongo-template-ref="mongoTemplate"/>
+	
+	<bean id="transactionManager1"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/DJ" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+	</bean>
+
+</beans>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="pushNotification"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="pushNotificationCron" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="pushNotificationCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="pushNotification" />
+		<property name="cronExpression" value="0 0/30 9-11 ? * MON-FRI" />
+		
+	</bean>
+	
+	<bean id="carryForward"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="carryForwardCron" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="carryForwardCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="carryForward" />
+		<property name="cronExpression" value="0 0 6 1 1 ? *" />
+		<!-- <property name="cronExpression" value="*/30 9,10,11 * * 1-5" /> -->
+		<!-- <property name="cronExpression" value="0 0/1 * * * ?" /> -->
+	</bean>
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="pushNotificationCronTrigger" />
+				<ref bean="carryForwardCronTrigger" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="pushNotificationCron" class="com.dew.solutions.application.cron.PushNotificationCron" />
+	<bean id="carryForwardCron" class="com.dew.solutions.application.cron.CarryForwardCron" />
+</beans> 
