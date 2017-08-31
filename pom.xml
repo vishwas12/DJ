@@ -8,13 +8,15 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>4.0.7.RELEASE</spring.version>
+		<spring.version>4.3.6.RELEASE</spring.version>
 		<spring.security.version>3.2.5.RELEASE</spring.security.version>
-		<jackson.version>1.9.10</jackson.version>
+		<jackson.version>2.8.6</jackson.version>
 		<log4j.version>1.2.17</log4j.version>
 		<mysql.version>5.1.36</mysql.version>
 		<dbcp.version>1.4</dbcp.version>
 		<spring.security.oauth>2.0.3.RELEASE</spring.security.oauth>
+		<mongo.driver.version>3.4.2</mongo.driver.version>
+		<mongo.version>1.10.0.RELEASE</mongo.version>
 	</properties>
 
 	<dependencies>
@@ -96,22 +98,35 @@
 			<artifactId>json</artifactId>
 			<version>20090211</version>
 		</dependency>
+		<!-- mongodb java driver -->
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+
+		<!-- Spring data mongodb -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>1.10.0.RELEASE</version>
+		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
-			<version>2.2.3</version>
+			<version>${jackson.version}</version>
 		</dependency>
 		<!-- Jackson 2.x Annotations -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
-			<version>2.2.3</version>
+			<version>${jackson.version}</version>
 		</dependency>
 		<!-- Jackson 2.x Databind -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.2.3</version>
+			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
