@@ -25,8 +25,8 @@ public class SearchResultsTransformer {
             searchResults.setLastName(user.getLastName());
             searchResults.setCreatedOn(user.getCreatedOn());
             searchResults.setStatus(user.getStatus());
-            searchResults.setHourlyRate(user.getPricingDetails().getDailyRate());
-            for (BookingHistory bookingHistory : user.getBookingHistory()) {
+            //searchResults.setHourlyRate(user.getPricingDetails().getDailyRate());
+            /*for (BookingHistory bookingHistory : user.getBookingHistory()) {
                 verifiedBookingCount++;
                 Set<Date> futureBookedDates =  new HashSet<>();
                 if(bookingHistory !=null && bookingHistory.getBookingStartDate()!= null && bookingHistory.getBookingStartDate().after(new Date())) {
@@ -36,10 +36,10 @@ public class SearchResultsTransformer {
                     futureBookedDates.add(bookingHistory.getBookingEndDate());
                 }
                 
-            }
+            }*/
             searchResults.setNumberOfVerifiedBookings(verifiedBookingCount);
-            searchResults.setDataLocation(user.getUserDataCollection().get(0).getDataLink());
-            searchResults.setReviews(user.getReviews());
+            //searchResults.setDataLocation(user.getUserDataCollection().get(0).getDataLink());
+            //searchResults.setReviews(user.getReviews());
             map.put(Integer.toString(searchResults.getUserId()), searchResults);
         }
         return map;

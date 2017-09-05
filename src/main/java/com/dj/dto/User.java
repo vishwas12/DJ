@@ -4,15 +4,35 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.DynamicUpdate;
+
+@Entity
+@Table(name="USER")
+@DynamicUpdate
 public class User implements Serializable{
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "USER_ID")
 	private int userId;
 	private String firstName;
 	private String lastName;
 	private String userAddress;
+	@Column(unique=true)
 	private String email;
 	private String password;
 	private String mobileNumber;
@@ -21,15 +41,19 @@ public class User implements Serializable{
 	private String createdBy;
 	private String accessToken;
 	private String deviceId;
-	private UserType userType;
+	//private UserType userType;
 	private String userTypeVal;
-	private List<UserCategory> userCategory;
+	/*private List<UserCategory> userCategory;
 	private List<UserDataCollection> userDataCollection;
 	private PricingDetails pricingDetails;
 	private List<BookingHistory> bookingHistory;
 	private List<UserLocality> userLocality;
-	private List<Review> reviews;
+	private List<Review> reviews; */
+	@Transient
 	private List<String> roles;
+	
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private UserVerification userVerification;
 	
 	
 	
@@ -46,7 +70,7 @@ public class User implements Serializable{
 		this.lastName = lastName;
 	}
 	
-	public List<UserDataCollection> getUserDataCollection() {
+/*	public List<UserDataCollection> getUserDataCollection() {
         return userDataCollection;
     }
     public void setUserDataCollection(List<UserDataCollection> userDataCollection) {
@@ -69,19 +93,19 @@ public class User implements Serializable{
 	}
 	public void setPricingDetails(PricingDetails pricingDetails) {
 		this.pricingDetails = pricingDetails;
-	}
+	}*/
 	public String getUserTypeVal() {
 		return userTypeVal;
 	}
 	public void setUserTypeVal(String userTypeVal) {
 		this.userTypeVal = userTypeVal;
 	}
-	public UserType getUserType() {
+	/*public UserType getUserType() {
 		return userType;
 	}
 	public void setUserType(UserType userType) {
 		this.userType = userType;
-	}
+	}*/
 	public String getAccessToken() {
 		return accessToken;
 	}
@@ -152,7 +176,7 @@ public class User implements Serializable{
 	public void validate(){
 		
 	}
-    public List<UserCategory> getUserCategory() {
+    /*public List<UserCategory> getUserCategory() {
         return userCategory;
     }
     public void setUserCategory(List<UserCategory> userCategory) {
@@ -160,7 +184,7 @@ public class User implements Serializable{
     }
     public List<Review> getReviews() {
         return reviews;
-    }
+    } */
     
     public List<String> getRoles() {
 		return roles;
@@ -168,7 +192,14 @@ public class User implements Serializable{
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
 	}
-	@Override
+	
+	public UserVerification getUserVerification() {
+		return userVerification;
+	}
+	public void setUserVerification(UserVerification userVerification) {
+		this.userVerification = userVerification;
+	}
+	/*@Override
     public String toString() {
         return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", userAddress=" + userAddress + ", email=" + email + ", password=" + password + ", mobileNumber=" + mobileNumber
                         + ", status=" + status + ", createdOn=" + createdOn + ", createdBy=" + createdBy + ", accessToken=" + accessToken + ", deviceId=" + deviceId + ", userType=" + userType + ", userTypeVal="
@@ -177,6 +208,6 @@ public class User implements Serializable{
     }
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
-    }
+    }*/
 	
 }

@@ -1,11 +1,78 @@
 <html>
  
     <body>
-        <h3>Dear ${user.firstName}, 
+        <h3>Dear ${firstName}, 
         <br/>Thank you for registering with ${companyName}.</h3>
-        <span> <a href= "http://google.co.in" target="_blank">Click here to verify your account </a> </span>
         
-        <h3>Regards, <br/>
-        Team ${companyName}</h3>
+        <td>
+    <table cellpadding="0" cellspacing="0" border="0" align="center">
+        <tbody>
+            <tr>
+                <td style="font-size:1px;line-height:1px" colspan="3" height="1">&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="m_4375397707623738527hard-td-spacer" style="width:1px">
+                    <table cellpadding="0" cellspacing="0" border="0" style="width:1px"></table>
+                </td>
+                <td>
+                    <table cellpadding="0" cellspacing="0" border="0" align="center" class="m_4375397707623738527device-width-inner" style="border:1px solid #bfc0cd;border-collapse:separate;border-radius:3px;width:100%;max-width:560px">
+                        <tbody>
+                            <tr>
+                                <td style="font-size:1px;line-height:1px" colspan="3" height="30px">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="m_4375397707623738527soft-td-spacer" style="width:45px;display:block">&nbsp;</td>
+                                <td>
+                                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                        <tbody>
+                                            <tr class="m_4375397707623738527tr-for-centering">
+                                                <td align="center" width="100%" style="font-family:Helvetica,arial,sans-serif;font-size:28px;color:#484a6f;font-weight:normal;text-align:center;line-height:30px">Just a click away…</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size:1px;line-height:1px" colspan="1" height="30px">&nbsp;</td>
+                                            </tr>
+                                            <tr class="m_4375397707623738527tr-for-centering">
+                                                <td align="center" width="100%" valign="middle">
+                                                    <div class="m_4375397707623738527button-container">
+                                                        <table cellpadding="0" cellspacing="0" border="0" align="center">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td height="40" align="center" style="display:block;padding:2px;line-height:20px">
+                                                                        <table cellpadding="0" cellspacing="0" border="0" style="border:1px solid;border-color:#008ce3;display:block;background-color:#14aaf5;border-radius:3px">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td><a style="text-decoration:none" href =${link} target="_blank" ><span style="color:#fff;font-size:16px;font-family:Helvetica,arial,sans-serif;text-decoration:none;text-align:center;line-height:32px;display:block;padding:0px 15px"><strong style="font-weight:600;font-family:'Helvetica Neue',Arial,sans-serif;white-space:nowrap">Verify your email address</strong></span></a></td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td class="m_4375397707623738527soft-td-spacer" style="width:45px;display:block">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td style="font-size:1px;line-height:1px" colspan="3" height="30px">&nbsp;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td class="m_4375397707623738527hard-td-spacer" style="width:1px">
+                    <table cellpadding="0" cellspacing="0" border="0" style="width:1px"></table>
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size:1px;line-height:1px" colspan="3" height="1">&nbsp;</td>
+            </tr>
+        </tbody>
+    </table>
+</td>
+        
     </body>
 </html>

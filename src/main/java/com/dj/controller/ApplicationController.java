@@ -1,6 +1,5 @@
 package com.dj.controller;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dj.application.exception.CustomGenericException;
 import com.dj.dto.MusicType;
-import com.dj.dto.SearchResults;
 import com.dj.dto.UiData;
 import com.dj.dto.User;
 import com.dj.security.CustomAuthenticationProvider;
@@ -31,7 +28,6 @@ import com.dj.service.BookingService;
 import com.dj.service.UserService;
 import com.dj.utils.Mailer;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 @RestController
 @RequestMapping(value="/user")
@@ -74,7 +70,7 @@ public class ApplicationController {
 		return new ResponseEntity<UiData>(data , HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/sendMail", method = RequestMethod.GET)
+/*	@RequestMapping(value = "/sendMail", method = RequestMethod.GET)
 	public ResponseEntity<UiData> sendMail(HttpServletRequest request){
 		//String accessToken = request.getHeader("accessToken");
 		//userService.logout(accessToken);
@@ -86,7 +82,7 @@ public class ApplicationController {
 		mailer.sendEmail(user);
 		data.setMessage("User Logged Out");
 		return new ResponseEntity<UiData>(data , HttpStatus.OK);
-	}
+	}*/
 	
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
 	public ResponseEntity<UiData> registerUser(@RequestBody User user){
@@ -95,11 +91,10 @@ public class ApplicationController {
 			userService.registerUser(user);
 			data.setMessage("User Registered");
 		}
-		catch(Exception e) {
-			data.setMessage("ERROR");
+		catch(CustomGenericException e) {
+			data.setMessage(e.getExceptionMsg());
 			return new ResponseEntity<UiData>(data , HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
 		return new ResponseEntity<UiData>(data , HttpStatus.OK);
 	}
 	
@@ -115,7 +110,7 @@ public class ApplicationController {
 		data.setData(list);
 		return new ResponseEntity<UiData>(data , HttpStatus.OK);
 	}
-	@RequestMapping(value = "/viewBandDetails", method = RequestMethod.POST)
+/*	@RequestMapping(value = "/viewBandDetails", method = RequestMethod.POST)
     public ResponseEntity<Map<String, SearchResults>> viewBandDetails(@RequestBody String request) {
         Type type = new TypeToken<Map<String, String>>() {}.getType();
         Map<String, String> myMap = gson.fromJson(request, type);
@@ -126,7 +121,7 @@ public class ApplicationController {
         else {
             return new ResponseEntity<Map<String, SearchResults>>(map, HttpStatus.SERVICE_UNAVAILABLE);
         }
-    }
+    }*/
 	
 	@ExceptionHandler({CustomGenericException.class})
 	public ResponseEntity<Map<String, String>> handleException(CustomGenericException ex){

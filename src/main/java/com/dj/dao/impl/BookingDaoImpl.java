@@ -28,12 +28,12 @@ public class BookingDaoImpl extends JdbcDaoSupport implements BookingDao {
 		query.append("insert into booking_history(booked_user_id,user_type,status,booking_start_date,booking_end_date,user_id)");
 		query.append(" values(?,?,?,?,?,?)");
 		Object[] params = {
-				user.getBookingHistory().get(0).getBookedUserId(),
+				/*user.getBookingHistory().get(0).getBookedUserId(),
 				user.getUserType().getUserTypeId(),
 				1,
 				user.getBookingHistory().get(0).getBookingStartDate(),
 				user.getBookingHistory().get(0).getBookingEndDate(),
-				user.getUserId()
+				user.getUserId()*/
 		};
 		try {
 			getJdbcTemplate().update(query.toString(), params);
@@ -123,22 +123,22 @@ public class BookingDaoImpl extends JdbcDaoSupport implements BookingDao {
                     bh.setBookingStartDate(rs.getDate("start_date"));
                     bh.setBookingEndDate(rs.getDate("end_date"));
                     bhl.add(bh);
-                    user.setBookingHistory(bhl);
+                   // user.setBookingHistory(bhl);
                     PricingDetails pricingDetails = new PricingDetails();
                     pricingDetails.setHourlyRate(rs.getDouble("hourly_rate"));
                     pricingDetails.setDailyRate(rs.getDouble("daily_rate"));
-                    user.setPricingDetails(pricingDetails);
+                   // user.setPricingDetails(pricingDetails);
                     List<Review> list =  new ArrayList<>();
                     Review review =  new Review();
                     review.setDescription(rs.getString("description"));
                     review.setRating(rs.getFloat("rating"));
                     list.add(review);
-                    user.setReviews(list);
+                    //user.setReviews(list);
                     List<UserDataCollection> udcList =  new ArrayList<>();
                     UserDataCollection udc =  new UserDataCollection();
                     udc.setDataLink(rs.getString("data_url"));
                     udcList.add(udc);
-                    user.setUserDataCollection(udcList);
+                   // user.setUserDataCollection(udcList);
 
                     return user;
                 }

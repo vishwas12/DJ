@@ -36,7 +36,7 @@ public class BookingServiceImpl implements BookingService{
 	public List<BookingHistory> viewBooking(User user) {
 		return bookingDao.viewBooking(user);
 	}
-	@Override
+	/*@Override
     public Map<String, SearchResults> viewBandDetails(String location, String category) {
         List<User> users = new ArrayList<User>();
         users = bookingDao.viewBandDetails(location, category);
@@ -61,5 +61,5 @@ public class BookingServiceImpl implements BookingService{
 
         return userIdUserMap;
     }
-
+*/
 }

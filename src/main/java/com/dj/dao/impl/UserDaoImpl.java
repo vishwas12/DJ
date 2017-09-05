@@ -77,21 +77,14 @@ public class UserDaoImpl extends JdbcDaoSupport implements UserDao{
 	@Override
 	public void registerUser(User user) {
 		StringBuffer query = new StringBuffer();
-		query.append("insert into user(user_type_id,first_name,last_name,user_address,email,password,mobile_number,status,created_on,created_by,modified_by,modified_on) ");
-		query.append("values(?,?,?,?,?,?,?,?,?,?,?,?)");
+		query.append("insert into user(email,password,mobile_number,status,created_on) ");
+		query.append("values(?,?,?,?,?)");
 		
 		Object[] params = {
-				user.getUserType().getUserTypeId(),
-				user.getFirstName(),
-				user.getLastName(),
-				user.getUserAddress(),
 				user.getEmail(),
 				user.getPassword(),
 				user.getMobileNumber(),
 				1,
-				new Date(),
-				"USER",
-				"USER",
 				new Date()
 		};
 		

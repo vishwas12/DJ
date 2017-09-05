@@ -37,7 +37,7 @@ public class BookingController {
 		return new ResponseEntity<Map<String,String>>(map , HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/cancelBooking", method = RequestMethod.POST)
+/*	@RequestMapping(value = "/cancelBooking", method = RequestMethod.POST)
 	public ResponseEntity<Map<String, String>> cancelBooking(HttpServletRequest request){
 		Map<String, String> map = new HashMap<String, String>();
 		User user = new User();
@@ -45,7 +45,7 @@ public class BookingController {
 		bookingService.cancelBooking(user.getBookingHistory().get(0).getBookingHistoryId());
 		map.put("message", "Band Cancelled");
 		return new ResponseEntity<Map<String,String>>(map , HttpStatus.OK);
-	}
+	}*/
 	
 	@RequestMapping(value = "/viewBooking", method = RequestMethod.POST)
 	public ResponseEntity<Map<String, String>> viewBooking(HttpServletRequest request){

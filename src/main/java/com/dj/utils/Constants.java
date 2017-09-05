@@ -12,5 +12,7 @@ public class Constants {
 	
 	public static final String COMPANY_NAME = "email.register.company";
 	
+	public static final String DOMAIN_NAME = "email.host";
+	
 
 }

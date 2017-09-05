@@ -10,5 +10,5 @@ import com.dj.dto.User;
 public interface BookingService {public void bookBand(User user);
 	public boolean cancelBooking(int bookingId);
 	public List<BookingHistory> viewBooking(User user);
-	public Map<String, SearchResults> viewBandDetails(String location, String category);
+	/*public Map<String, SearchResults> viewBandDetails(String location, String category);*/
 }

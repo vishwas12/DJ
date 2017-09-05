@@ -2,9 +2,22 @@ package com.dj.dto;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "VENDOR_PRICING_DETAILS")
 public class PricingDetails {
+	
+	@Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "VENDOR_PRICING_DETAILS_ID")
     private int pricingDetailsId;
-    private int userId;
+	
     private Double hourlyRate;
     private Double dailyRate;
     private int status;
@@ -52,14 +65,6 @@ public class PricingDetails {
         this.pricingDetailsId = pricingDetailsId;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     public Double getHourlyRate() {
         return hourlyRate;
     }
@@ -75,14 +80,5 @@ public class PricingDetails {
     public void setDailyRate(Double dailyRate) {
         this.dailyRate = dailyRate;
     }
-
-    @Override
-    public String toString() {
-        return "PricingDetails [pricingDetailsId=" + pricingDetailsId + ", userId=" + userId + ", hourlyRate=" + hourlyRate + ", dailyRate=" + dailyRate + ", status=" + status + ", createdOn=" + createdOn
-                        + ", modifiedOn=" + modifiedOn + ", userLocalityId=" + userLocalityId + "]";
-    }
-
-   
-
     
 }

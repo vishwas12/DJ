@@ -23,6 +23,13 @@
 			</list>
 		</property>
 	</bean> -->
+	<bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+    <!-- one of the properties available; the maximum file size in bytes -->
+    <property name="maxUploadSize" value="10000000"/>
+
+</bean>
 	<import resource="datasource-config.xml" />
 	<!-- <import resource="security/spring-security.xml" /> -->
 	<import resource="oauth/voter-config.xml" />
@@ -32,5 +39,6 @@
 	<import resource="oauth/oauthconfig.xml" />
 	<import resource="oauth/endpoint-config.xml" />
 	<import resource="email-config.xml" />
+	<import resource="spring-jpa.xml" />
 	<!-- <import resource="quartz.xml" /> -->
 </beans>

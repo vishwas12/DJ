@@ -15,4 +15,5 @@ public interface UserDao {
 	public List<MusicType> getAllMusicTypes();
 	public List<User> getMusicians(List<MusicType> musicTypes);
 	public User getUserByUsername(String username); 
+	
 }
