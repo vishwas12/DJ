@@ -11,7 +11,7 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 
-import com.dj.dto.User;
+import com.dj.dto.AuthUser;
 
 
 public class AccessTokenEnhancer implements TokenEnhancer {
@@ -25,7 +25,7 @@ public class AccessTokenEnhancer implements TokenEnhancer {
 	@Override
 	public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
 		DefaultOAuth2AccessToken tempResult = (DefaultOAuth2AccessToken) accessToken;
-	     User authUser = (User)authentication.getUserAuthentication().getPrincipal();
+	     AuthUser authUser = (AuthUser)authentication.getUserAuthentication().getPrincipal();
 	     
 	     final Map<String, Object> additionalInformation = new HashMap<String, Object>();
 	     List<String> roles= new ArrayList<String>();

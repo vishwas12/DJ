@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.dj.application.dao.support.JdbcDaoSupport;
 import com.dj.application.exception.CustomGenericException;
 import com.dj.dao.UserDao;
+import com.dj.dto.AuthUser;
 import com.dj.dto.MusicType;
 import com.dj.dto.User;
 
@@ -152,12 +153,12 @@ public class UserDaoImpl extends JdbcDaoSupport implements UserDao{
 	}
 
 	@Override
-	public User getUserByUsername(String username) {
+	public AuthUser getUserByUsername(String username) {
 		// TODO Auto-generated method stub
-		User user = null;
+		AuthUser user = null;
 		try{
-			String query = "select * from user where email=?";
-			user = getJdbcTemplate().queryForObject(query.toString(), new BeanPropertyRowMapper<User>(User.class),username);
+			String query = "select * from AUTH_USER where email=?";
+			user = getJdbcTemplate().queryForObject(query.toString(), new BeanPropertyRowMapper<AuthUser>(AuthUser.class),username);
 		}catch (DataAccessException e) {
 			e.printStackTrace();
 		}

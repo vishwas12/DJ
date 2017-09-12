@@ -2,6 +2,7 @@ package com.dj.dao;
 
 import java.util.List;
 
+import com.dj.dto.AuthUser;
 import com.dj.dto.MusicType;
 import com.dj.dto.User;
 
@@ -14,6 +15,6 @@ public interface UserDao {
 	public boolean emailValidate(String email);
 	public List<MusicType> getAllMusicTypes();
 	public List<User> getMusicians(List<MusicType> musicTypes);
-	public User getUserByUsername(String username); 
+	public AuthUser getUserByUsername(String username); 
 	
 }
