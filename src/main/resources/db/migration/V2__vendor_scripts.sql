@@ -1,0 +1,20 @@
+drop table if exists VENDOR;
+drop table if exists VENDOR_CONTENT;
+drop table if exists VENDOR_DETAILS;
+drop table if exists VENDOR_PACKAGE_DETAILS;
+drop table if exists VENDOR_PACKAGES;
+drop table if exists VENDOR_PRICING_DETAILS;
+drop table if exists VENDOR_REVIEWS;
+create table VENDOR (VENDOR_ID bigint not null auto_increment, ADDRESS varchar(255), CREATED_BY varchar(255), CREATED_ON datetime, EMAIL varchar(255), FIRST_NAME varchar(255), LAST_NAME varchar(255), MOBILE_NUMBER varchar(255), PASSWORD varchar(255), STATUS integer, primary key (VENDOR_ID)) engine=MyISAM;
+create table VENDOR_CONTENT (VENDOR_CONTENT_ID bigint not null auto_increment, TYPE_ID bigint, FILE_ID integer, VENDOR_ID bigint, primary key (VENDOR_CONTENT_ID)) engine=MyISAM;
+create table VENDOR_DETAILS (VENDOR_DETAILS_ID bigint not null auto_increment, VENDOR_ID bigint, primary key (VENDOR_DETAILS_ID)) engine=MyISAM;
+create table VENDOR_PACKAGE_DETAILS (VENDOR_PACKAGE_DETAILS_ID bigint not null auto_increment, primary key (VENDOR_PACKAGE_DETAILS_ID)) engine=MyISAM;
+create table VENDOR_PACKAGES (VENDOR_PACKAGE_ID bigint not null auto_increment, PACKAGE_DETAILS_ID bigint, PRICING_DETAILS_ID integer, VENDOR_ID bigint, primary key (VENDOR_PACKAGE_ID)) engine=MyISAM;
+create table VENDOR_PRICING_DETAILS (VENDOR_PRICING_DETAILS_ID integer not null auto_increment, createdOn datetime, dailyRate double precision, hourlyRate double precision, modifiedOn datetime, status integer not null, userLocalityId integer not null, primary key (VENDOR_PRICING_DETAILS_ID)) engine=MyISAM;
+create table VENDOR_REVIEWS (VENDOR_REVIEW_ID bigint not null auto_increment, DESCRIPTION varchar(255), REVIEWER_NAME varchar(255), USER_ID bigint, VENDOR_ID bigint, primary key (VENDOR_REVIEW_ID)) engine=MyISAM;
+alter table VENDOR_CONTENT add constraint FKi6vcpnih4qhy2gc39kru40pce foreign key (VENDOR_ID) references VENDOR (VENDOR_ID);
+alter table VENDOR_DETAILS add constraint FKkgum1sqyhhfg4itjs5e8n1on foreign key (VENDOR_ID) references VENDOR (VENDOR_ID);
+alter table VENDOR_PACKAGES add constraint FK8b9rpvrboypgrya8tpoqxf01w foreign key (PACKAGE_DETAILS_ID) references VENDOR_PACKAGE_DETAILS (VENDOR_PACKAGE_DETAILS_ID);
+alter table VENDOR_PACKAGES add constraint FKdq5frvhqfiysnmcwoof7b8je0 foreign key (PRICING_DETAILS_ID) references VENDOR_PRICING_DETAILS (VENDOR_PRICING_DETAILS_ID);
+alter table VENDOR_PACKAGES add constraint FKe2aepkxemhtdw5vvot2724p33 foreign key (VENDOR_ID) references VENDOR (VENDOR_ID);
+alter table VENDOR_REVIEWS add constraint FK6h2plr6gmy0u1nab2tjhs9jtq foreign key (VENDOR_ID) references VENDOR (VENDOR_ID)
