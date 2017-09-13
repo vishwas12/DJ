@@ -24,7 +24,6 @@ public class AuthUser implements Serializable {
 	private int userId;
 	private String firstName;
 	private String lastName;
-	private String userAddress;
 	@Column(unique=true)
 	private String email;
 	private String password;
@@ -48,12 +47,6 @@ public class AuthUser implements Serializable {
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-	public String getUserAddress() {
-		return userAddress;
-	}
-	public void setUserAddress(String userAddress) {
-		this.userAddress = userAddress;
 	}
 	public String getEmail() {
 		return email;

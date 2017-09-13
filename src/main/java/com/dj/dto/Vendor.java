@@ -42,6 +42,9 @@ public class Vendor {
 	@Column(name = "MOBILE_NUMBER")
 	private String mobileNumber;
 	
+	@Column(name = "CATEGORY_ID")
+	private int categoryId;
+	
 	@Column(name = "STATUS")
 	private int status;
 	
@@ -155,6 +158,12 @@ public class Vendor {
 	}
 	public void setVendorVerification(VendorVerification vendorVerification) {
 		this.vendorVerification = vendorVerification;
+	}
+	public int getCategoryId() {
+		return categoryId;
+	}
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	
