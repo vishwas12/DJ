@@ -12,6 +12,7 @@
             <sec:http  pattern="/user/register*" security="none" ></sec:http >
             <sec:http  pattern="/fileupload/hello*" security="none" ></sec:http >
             <sec:http  pattern="/vendor/Signup*" security="none" ></sec:http >
+            <sec:http  pattern="/api/*" security="none" ></sec:http >
 
     <http pattern="/**" create-session="never" 
       entry-point-ref="oauthAuthenticationEntryPoint"
