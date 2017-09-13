@@ -114,7 +114,7 @@ public class BookingDaoImpl extends JdbcDaoSupport implements BookingDao {
 
                     User user = new User();
 
-                    user.setUserId(rs.getInt("user_id"));
+                    user.setUserId(rs.getLong("user_id"));
                     user.setFirstName(rs.getString("first_name"));
                     user.setLastName(rs.getString("last_name"));
                     user.setStatus(rs.getInt("status"));

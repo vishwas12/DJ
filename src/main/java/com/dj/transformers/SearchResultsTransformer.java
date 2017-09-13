@@ -40,7 +40,7 @@ public class SearchResultsTransformer {
             searchResults.setNumberOfVerifiedBookings(verifiedBookingCount);
             //searchResults.setDataLocation(user.getUserDataCollection().get(0).getDataLink());
             //searchResults.setReviews(user.getReviews());
-            map.put(Integer.toString(searchResults.getUserId()), searchResults);
+            map.put(Long.toString(searchResults.getUserId()), searchResults);
         }
         return map;
     }

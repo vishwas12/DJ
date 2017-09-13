@@ -11,9 +11,12 @@ import com.dj.application.exception.CustomGenericException;
 import com.dj.dao.ApplicationDao;
 import com.dj.dao.UserDao;
 import com.dj.dao.UserRepository;
+import com.dj.dao.UserVerificationRepository;
 import com.dj.dto.AuthUser;
 import com.dj.dto.MusicType;
 import com.dj.dto.User;
+import com.dj.dto.UserVerification;
+import com.dj.dto.VendorVerification;
 import com.dj.service.UserService;
 import com.dj.utils.EncryptionUtils;
 import com.dj.utils.Mailer;
@@ -32,6 +35,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	UserVerificationRepository userVerificationRepository;
 	
 	@Override
 	public User getUserByAccessToken(String accessToken) {
@@ -69,6 +75,25 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public AuthUser getUserByUsername(String username) {
 		return userDao.getUserByUsername(username);
+	}
+
+	@Override
+	public boolean verifyEmail(Long id, String code) {
+		UserVerification uvf = userVerificationRepository.findByUserId(id);
+		boolean isVerified = false;
+		if(null != uvf) {
+			if(null != uvf.getVerificationCode() && uvf.getVerificationCode().equals(code)) {
+				isVerified =true;
+				userRepository.updateEmailVerificationStatus(id);
+			}
+			else {
+				throw new CustomGenericException("EMAIL_VERIFICATION_TOKEN_EXPIRED",HttpStatus.OK);
+			}
+		}
+		else{
+			throw new CustomGenericException("INVALID_EMAIL_VERIFICATION",HttpStatus.OK);
+		}
+		return isVerified;
 	}
 	
 

@@ -13,13 +13,16 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dj.application.exception.CustomGenericException;
 import com.dj.dao.AuthUserRepository;
 import com.dj.dao.UserRepository;
 import com.dj.dao.VendorRepository;
+import com.dj.dao.VendorVerificationRepository;
 import com.dj.dto.AuthUser;
 import com.dj.dto.Vendor;
+import com.dj.dto.VendorVerification;
 import com.dj.security.CustomAuthenticationProvider;
 import com.dj.service.VendorService;
 import com.dj.utils.EncryptionUtils;
@@ -42,6 +45,9 @@ public class VendorServiceImpl implements VendorService {
 	
 	@Autowired
 	CustomAuthenticationProvider customAuthenticationProvider;
+	
+	@Autowired
+	VendorVerificationRepository vendorVerificationRepository;
 	
 	@Override
 	public void vendorSignUp(Vendor vendor) {
@@ -88,6 +94,25 @@ public class VendorServiceImpl implements VendorService {
 			SecurityContextHolder.getContext().setAuthentication(null);
             e.printStackTrace();
 		}
+	}
+
+	@Override
+	public boolean verifyEmail(Long id, String code) {
+		VendorVerification vvf = vendorVerificationRepository.findByVendorId(id);
+		boolean isVerified = false;
+		if(null != vvf) {
+			if(null != vvf.getVerificationCode() && vvf.getVerificationCode().equals(code)) {
+				isVerified =true;
+				vendorRepository.updateEmailVerificationStatus(id);
+			}
+			else {
+				throw new CustomGenericException("EMAIL_VERIFICATION_TOKEN_EXPIRED",HttpStatus.OK);
+			}
+		}
+		else{
+			throw new CustomGenericException("INVALID_EMAIL_VERIFICATION",HttpStatus.OK);
+		}
+		return isVerified;
 	}
 
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class SearchResults {
 
-    private int userId;
+    private Long userId;
     private String firstName;
     private String lastName;
     private int status;
@@ -18,11 +18,11 @@ public class SearchResults {
     private int numberOfVerifiedBookings;
     private List<Review> reviews;
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

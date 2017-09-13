@@ -14,4 +14,5 @@ public interface UserService {
 	public void registerUser(User user);
 	public List<MusicType> getAllMusicTypes();
 	public List<User> getMusicians(List<MusicType> musicTypes);
+	public boolean verifyEmail(Long id, String code);
 }

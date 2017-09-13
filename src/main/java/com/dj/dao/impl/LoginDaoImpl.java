@@ -31,7 +31,7 @@ public class LoginDaoImpl extends JdbcDaoSupport implements LoginDao {
 	}
 
 	@Override
-	public boolean invalidateLogin(int userId) {
+	public boolean invalidateLogin(Long userId) {
 		String query = "update user_login_hist set status=2 where user_id=? and user_device_id='9999'";
 		boolean flag = false;
 		if(getJdbcTemplate().update(query,userId)==1){
@@ -41,7 +41,7 @@ public class LoginDaoImpl extends JdbcDaoSupport implements LoginDao {
 	}
 
 	@Override
-	public boolean userAlreadyLoggedIn(int userId) {
+	public boolean userAlreadyLoggedIn(Long userId) {
 		StringBuffer query = new StringBuffer();
 		boolean flag = false;
 		query.append("select if(COUNT('*')>0,true,false) as count FROM user_login_hist userLoginHist");

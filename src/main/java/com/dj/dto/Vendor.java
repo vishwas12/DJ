@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
+
 @Entity
 @Table(name = "VENDOR")
 public class Vendor {
@@ -68,6 +70,10 @@ public class Vendor {
 	
 	@OneToOne(mappedBy = "vendor", cascade = CascadeType.ALL)
 	private VendorVerification vendorVerification;
+	
+	@Column(name = "IS_EMAIL_VERIFIED")
+	private boolean isEmailVerified;
+	
 	
 	public Long getVendorId() {
 		return vendorId;

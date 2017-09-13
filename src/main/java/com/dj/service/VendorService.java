@@ -6,4 +6,6 @@ public interface VendorService {
 
 	void vendorSignUp(Vendor vendor);
 
+	boolean verifyEmail(Long id, String code);
+
 }
