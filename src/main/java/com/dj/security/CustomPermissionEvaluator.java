@@ -5,13 +5,14 @@ import java.io.Serializable;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 
+import com.dj.dto.AuthUser;
 import com.dj.dto.User;
 
 public class CustomPermissionEvaluator implements PermissionEvaluator {
 
 	@Override
 	public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
-		User authUser = (User)authentication.getPrincipal();
+		AuthUser authUser = (AuthUser)authentication.getPrincipal();
 		
 		return true;
 	}

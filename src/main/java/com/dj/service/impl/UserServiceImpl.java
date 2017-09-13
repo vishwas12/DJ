@@ -11,6 +11,7 @@ import com.dj.application.exception.CustomGenericException;
 import com.dj.dao.ApplicationDao;
 import com.dj.dao.UserDao;
 import com.dj.dao.UserRepository;
+import com.dj.dto.AuthUser;
 import com.dj.dto.MusicType;
 import com.dj.dto.User;
 import com.dj.service.UserService;
@@ -66,7 +67,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUserByUsername(String username) {
+	public AuthUser getUserByUsername(String username) {
 		return userDao.getUserByUsername(username);
 	}
 	

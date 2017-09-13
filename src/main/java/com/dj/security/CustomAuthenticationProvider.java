@@ -19,7 +19,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Component;
 
 import com.dj.application.exception.CustomGenericException;
-import com.dj.dto.User;
+import com.dj.dto.AuthUser;
 import com.dj.service.UserService;
 import com.dj.utils.EncryptionUtils;
 
@@ -42,7 +42,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String password = EncryptionUtils.passwordEncoder(username, authentication.getCredentials().toString());
         
         boolean passwordMatch=false;
-        User user = null;
+        AuthUser user = null;
         try{
         	user = userService.getUserByUsername(username);
         	//passwordMatch=sp.matches(password, user.getPassword());

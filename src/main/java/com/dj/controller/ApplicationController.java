@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dj.application.exception.CustomGenericException;
+import com.dj.dto.AuthUser;
 import com.dj.dto.MusicType;
 import com.dj.dto.UiData;
 import com.dj.dto.User;
@@ -100,7 +101,7 @@ public class ApplicationController {
 	
 	@RequestMapping(value = "/getAllMusicTypes", method = RequestMethod.POST)
 	public ResponseEntity<UiData> getAllMusicTypes(){
-		User user = oAuthSession.getAuthUser();
+		AuthUser user = oAuthSession.getAuthUser();
 		//validate user (can be handled via annotation)
 		
 		Map<String, String> map = new HashMap<String, String>();
