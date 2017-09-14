@@ -21,5 +21,7 @@ public interface UserRepository extends JpaRepository<User, Long> , CrudReposito
 	void updateEmailVerificationStatus(@Param("userId") Long userId);
 
 	User findByEmail(String email);
+	
+	User findByUserId(Long userId);
 
 }

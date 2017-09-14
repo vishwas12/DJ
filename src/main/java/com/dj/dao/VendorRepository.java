@@ -22,5 +22,7 @@ public interface VendorRepository extends JpaRepository<Vendor, Long>, CrudRepos
 	void updateEmailVerificationStatus(@Param("vendorId") Long vendorId);
 	
 	Vendor findByEmail(String email);
+	
+	Vendor findByVendorId(Long vendorId);
 
 }

@@ -109,5 +109,13 @@ public class UnauthorizedController {
 		data.setSuccess(isVerified);
 		return new ResponseEntity<UiData>(data , HttpStatus.OK);
 	}
+	@RequestMapping(value = "/resetPassword",method =RequestMethod.POST)
+	public ResponseEntity<UiData> resetPassword(@RequestBody Map<String,String> map) throws CustomGenericException{
+		UiData data =  new UiData();
+		commonService.resetPassword(map);
+		data.setMessage("SUCCESS");
+		data.setSuccess(true);
+		return new ResponseEntity<UiData>(data , HttpStatus.OK);
+	}
 
 }
