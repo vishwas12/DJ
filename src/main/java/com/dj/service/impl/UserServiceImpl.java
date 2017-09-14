@@ -100,20 +100,21 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void sendPasswordResetMail(Map<String, String> map) {
-		try {
-			User user = userRepository.findByEmail(map.get("email"));
-			if(null != user) {
-				 mailer.prepareEmail(user, Constants.FORGOT_PASSWORD, "Reset Password");
-			}else {
-				throw new CustomGenericException("INVALID_EMAIL",HttpStatus.BAD_REQUEST);
+	public boolean verifyPasswordLink(Long id, String code) {
+		UserVerification uvf = userVerificationRepository.findByUserId(id);
+		boolean isVerified = false;
+		if(null != uvf) {
+			if(null != uvf.getResetPasswordCode() && uvf.getResetPasswordCode().equals(code)) {
+				isVerified =true;
 			}
-			
+			else {
+				throw new CustomGenericException("EMAIL_VERIFICATION_TOKEN_EXPIRED",HttpStatus.OK);
+			}
 		}
-		catch(Exception e) {
-			throw new CustomGenericException("INVALID_EMAIL",HttpStatus.BAD_REQUEST);
+		else{
+			throw new CustomGenericException("INVALID_EMAIL_VERIFICATION",HttpStatus.OK);
 		}
-		
+		return isVerified;
 	}
 	
 

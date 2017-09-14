@@ -118,19 +118,21 @@ public class VendorServiceImpl implements VendorService {
 	}
 
 	@Override
-	public void sendPasswordResetMail(Map<String, String> map) {
-		try {
-			Vendor vendor = vendorRepository.findByEmail(map.get("email"));
-			
-			if(null != vendor) {
-				 mailer.prepareEmail(vendor, Constants.FORGOT_PASSWORD, "Reset Password");
-			}else {
-				throw new CustomGenericException("INVALID_EMAIL",HttpStatus.BAD_REQUEST);
+	public boolean verifyPasswordLink(Long id, String code) {
+		VendorVerification vvf = vendorVerificationRepository.findByVendorId(id);
+		boolean isVerified = false;
+		if(null != vvf) {
+			if(null != vvf.getResetPasswordCode() && vvf.getResetPasswordCode().equals(code)) {
+				isVerified =true;
+			}
+			else {
+				throw new CustomGenericException("RESET_PASSWORD_TOKEN_EXPIRED",HttpStatus.OK);
 			}
 		}
-		catch(Exception e) {
-			throw new CustomGenericException("INVALID_EMAIL",HttpStatus.BAD_REQUEST);
+		else{
+			throw new CustomGenericException("RESET_PASSWORD_TOKEN_EXPIRED",HttpStatus.OK);
 		}
+		return isVerified;
 	}
 
 }

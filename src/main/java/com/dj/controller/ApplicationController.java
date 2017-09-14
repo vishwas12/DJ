@@ -58,7 +58,7 @@ public class ApplicationController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) auth.getPrincipal();
 		UiData data = new UiData();
-		data.setToken(user.getAccessToken());
+		data.setData(user.getAccessToken());
 		return new ResponseEntity<UiData>(data , HttpStatus.OK);
 	}
 	

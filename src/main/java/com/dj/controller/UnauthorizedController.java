@@ -17,6 +17,7 @@ import com.dj.application.exception.CustomGenericException;
 import com.dj.dto.Category;
 import com.dj.dto.UiData;
 import com.dj.service.CategoryService;
+import com.dj.service.CommonService;
 import com.dj.service.UserService;
 import com.dj.service.VendorService;
 
@@ -32,7 +33,10 @@ public class UnauthorizedController {
 	VendorService vendorService;
 	
 	@Autowired
-	UserService userService; 
+	UserService userService;
+	
+	@Autowired
+	CommonService commonService;
 	
 	@RequestMapping(value = "/categoryList",method =RequestMethod.GET)
 	public ResponseEntity<UiData> fetchCategoryList() {
@@ -76,20 +80,33 @@ public class UnauthorizedController {
 	}
 	
 	@RequestMapping(value = "/forgotPassword",method =RequestMethod.POST)
-	public ResponseEntity<UiData> forgotPassword(@RequestBody Map<String,String> map) throws CustomGenericException{
+	public ResponseEntity<UiData> forgotPassword(@RequestParam("email")String email ) throws CustomGenericException{
 		UiData data =  new UiData();
-		if(map.get("type") != null && map.get("type").equals("vendor")) {
-			vendorService.sendPasswordResetMail(map);
+		commonService.sendPasswordResetMail(email);
+		data.setMessage("SUCCESS");
+		data.setSuccess(true);
+		return new ResponseEntity<UiData>(data , HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/verifyPasswordLink",method =RequestMethod.GET)
+	public ResponseEntity<UiData> verifyPasswordLink(@RequestParam(name ="code") String code,
+												@RequestParam(name ="type") String type,
+												@RequestParam(name ="id") Long id) throws CustomGenericException{
+		UiData data =  new UiData();
+		boolean isVerified = false;
+		if(type.equals("vendor")) {
+			isVerified = vendorService.verifyPasswordLink(id,code);
 		}
-		else if(map.get("type") != null && map.get("type").equals("user")) {
-			userService.sendPasswordResetMail(map);
+		else if(type.equals("user")) {
+			isVerified = userService.verifyPasswordLink(id,code);
 		}
 		else {
 			throw new CustomGenericException("INVALID_USER_TYPE",HttpStatus.BAD_REQUEST);
 		}
 		
-		data.setMessage("SUCCESS");
-		data.setSuccess(true);
+		String message  = isVerified ? "SUCCESS" : "ERROR";
+		data.setMessage(message);
+		data.setSuccess(isVerified);
 		return new ResponseEntity<UiData>(data , HttpStatus.OK);
 	}
 

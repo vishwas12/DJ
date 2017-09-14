@@ -16,5 +16,5 @@ public interface UserService {
 	public List<MusicType> getAllMusicTypes();
 	public List<User> getMusicians(List<MusicType> musicTypes);
 	public boolean verifyEmail(Long id, String code);
-	public void sendPasswordResetMail(Map<String, String> map);
+	public boolean verifyPasswordLink(Long id, String code);
 }

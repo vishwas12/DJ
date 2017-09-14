@@ -5,11 +5,27 @@ public class UiData {
 	private long id;
 	private boolean isSuccess;
 	private Object data;
-	private String token; //tobe removed
-	private String screenUrl;
 	private String message;
 	
 	
+	public UiData(boolean isSuccess, String message) {
+		super();
+		this.isSuccess = isSuccess;
+		this.message = message;
+	}
+
+	public UiData(boolean isSuccess, Object data, String message) {
+		super();
+		this.isSuccess = isSuccess;
+		this.data = data;
+		this.message = message;
+	}
+	
+
+	public UiData() {
+		super();
+	}
+
 	public String getMessage() {
 		return message;
 	}
@@ -40,22 +56,6 @@ public class UiData {
 
 	public void setData(Object data) {
 		this.data = data;
-	}
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
-
-	public String getScreenUrl() {
-		return screenUrl;
-	}
-
-	public void setScreenUrl(String screenUrl) {
-		this.screenUrl = screenUrl;
 	}
 
 }

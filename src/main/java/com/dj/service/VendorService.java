@@ -1,7 +1,5 @@
 package com.dj.service;
 
-import java.util.Map;
-
 import com.dj.dto.Vendor;
 
 public interface VendorService {
@@ -10,6 +8,6 @@ public interface VendorService {
 
 	boolean verifyEmail(Long id, String code);
 
-	void sendPasswordResetMail(Map<String, String> map);
+	boolean verifyPasswordLink(Long id, String code);
 
 }
