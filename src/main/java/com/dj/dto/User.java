@@ -36,7 +36,7 @@ public class User implements Serializable{
 	private String email;
 	private String password;
 	private String mobileNumber;
-	private int status;
+	private Integer status;
 	private Date createdOn;
 	private String createdBy;
 	private String accessToken;
@@ -45,7 +45,7 @@ public class User implements Serializable{
 	private String userTypeVal;
 	
 	@Column(name = "IS_EMAIL_VERIFIED")
-	private boolean isEmailVerified;
+	private Boolean isEmailVerified;
 	/*private List<UserCategory> userCategory;
 	private List<UserDataCollection> userDataCollection;
 	private PricingDetails pricingDetails;
@@ -157,10 +157,10 @@ public class User implements Serializable{
 	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 	public Date getCreatedOn() {

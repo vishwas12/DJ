@@ -28,8 +28,14 @@ public class VendorVerification {
 	@JoinColumn(name = "VENDOR_ID")
 	private Vendor vendor;
 
-	@Column(name = "CREATED_DATE")
-	private Timestamp createdDate;
+	@Column(name = "VERIFICATION_CODE_CREATED_DATE")
+	private Timestamp verificationCodeCreatedDate;
+	
+	@Column(name = "RESET_PASSWORD_CODE")
+	private String resetPasswordCode;
+	
+	@Column(name = "RESET_PASSWORD_CREATED_DATE")
+	private Timestamp resetPasswordCreatedDate;
 
 	public Long getVendorVerificationId() {
 		return vendorVerificationId;
@@ -55,12 +61,28 @@ public class VendorVerification {
 		this.vendor = vendor;
 	}
 
-	public Timestamp getCreatedDate() {
-		return createdDate;
+	public Timestamp getVerificationCodeCreatedDate() {
+		return verificationCodeCreatedDate;
 	}
 
-	public void setCreatedDate(Timestamp createdDate) {
-		this.createdDate = createdDate;
+	public void setVerificationCodeCreatedDate(Timestamp verificationCodeCreatedDate) {
+		this.verificationCodeCreatedDate = verificationCodeCreatedDate;
+	}
+
+	public String getResetPasswordCode() {
+		return resetPasswordCode;
+	}
+
+	public void setResetPasswordCode(String resetPasswordCode) {
+		this.resetPasswordCode = resetPasswordCode;
+	}
+
+	public Timestamp getResetPasswordCreatedDate() {
+		return resetPasswordCreatedDate;
+	}
+
+	public void setResetPasswordCreatedDate(Timestamp resetPasswordCreatedDate) {
+		this.resetPasswordCreatedDate = resetPasswordCreatedDate;
 	}
 	
 }

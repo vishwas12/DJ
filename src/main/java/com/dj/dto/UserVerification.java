@@ -28,6 +28,15 @@ public class UserVerification {
 	@JoinColumn(name = "USER_ID")
 	private User user;
 	
+	@Column(name = "VERIFICATION_CODE_CREATED_DATE")
+	private Timestamp verificationCodeCreatedDate;
+	
+	@Column(name = "RESET_PASSWORD_CODE")
+	private String resetPasswordCode;
+	
+	@Column(name = "RESET_PASSWORD_CREATED_DATE")
+	private Timestamp resetPasswordCreatedDate;
+	
 	public User getUser() {
 		return user;
 	}
@@ -35,9 +44,6 @@ public class UserVerification {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-	@Column(name = "CREATED_DATE")
-	private Timestamp createdDate;
 
 	public Long getUserVerificationId() {
 		return userVerificationId;
@@ -55,15 +61,29 @@ public class UserVerification {
 		this.verificationCode = verificationCode;
 	}
 
-	public Timestamp getCreatedDate() {
-		return createdDate;
+
+	public Timestamp getVerificationCodeCreatedDate() {
+		return verificationCodeCreatedDate;
 	}
 
-	public void setCreatedDate(Timestamp createdDate) {
-		this.createdDate = createdDate;
+	public void setVerificationCodeCreatedDate(Timestamp verificationCodeCreatedDate) {
+		this.verificationCodeCreatedDate = verificationCodeCreatedDate;
 	}
-	
-	
-	
+
+	public Timestamp getResetPasswordCreatedDate() {
+		return resetPasswordCreatedDate;
+	}
+
+	public void setResetPasswordCreatedDate(Timestamp resetPasswordCreatedDate) {
+		this.resetPasswordCreatedDate = resetPasswordCreatedDate;
+	}
+
+	public String getResetPasswordCode() {
+		return resetPasswordCode;
+	}
+
+	public void setResetPasswordCode(String resetPasswordCode) {
+		this.resetPasswordCode = resetPasswordCode;
+	}
 
 }

@@ -20,4 +20,6 @@ public interface UserRepository extends JpaRepository<User, Long> , CrudReposito
 	@Transactional
 	void updateEmailVerificationStatus(@Param("userId") Long userId);
 
+	User findByEmail(String email);
+
 }

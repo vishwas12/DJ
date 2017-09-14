@@ -2,6 +2,7 @@ package com.dj.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,8 +17,10 @@ import com.dj.dto.AuthUser;
 import com.dj.dto.MusicType;
 import com.dj.dto.User;
 import com.dj.dto.UserVerification;
+import com.dj.dto.Vendor;
 import com.dj.dto.VendorVerification;
 import com.dj.service.UserService;
+import com.dj.utils.Constants;
 import com.dj.utils.EncryptionUtils;
 import com.dj.utils.Mailer;
 
@@ -55,7 +58,7 @@ public class UserServiceImpl implements UserService {
 			user.setPassword(EncryptionUtils.passwordEncoder(user.getEmail(),user.getPassword()));
 			user.setCreatedOn(new Date());
 			user = userRepository.save(user);
-			mailer.prepareEmail(user);
+			mailer.prepareEmail(user,Constants.EMAIL_VERIFICATION,"Account Verification");
 			
 		}else{
 			throw new CustomGenericException("Email Already Taken", HttpStatus.BAD_REQUEST);
@@ -94,6 +97,23 @@ public class UserServiceImpl implements UserService {
 			throw new CustomGenericException("INVALID_EMAIL_VERIFICATION",HttpStatus.OK);
 		}
 		return isVerified;
+	}
+
+	@Override
+	public void sendPasswordResetMail(Map<String, String> map) {
+		try {
+			User user = userRepository.findByEmail(map.get("email"));
+			if(null != user) {
+				 mailer.prepareEmail(user, Constants.FORGOT_PASSWORD, "Reset Password");
+			}else {
+				throw new CustomGenericException("INVALID_EMAIL",HttpStatus.BAD_REQUEST);
+			}
+			
+		}
+		catch(Exception e) {
+			throw new CustomGenericException("INVALID_EMAIL",HttpStatus.BAD_REQUEST);
+		}
+		
 	}
 	
 

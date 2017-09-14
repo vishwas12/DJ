@@ -1,11 +1,13 @@
 package com.dj.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,6 +72,24 @@ public class UnauthorizedController {
 		String message  = isVerified ? "SUCCESS" : "ERROR";
 		data.setMessage(message);
 		data.setSuccess(isVerified);
+		return new ResponseEntity<UiData>(data , HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/forgotPassword",method =RequestMethod.POST)
+	public ResponseEntity<UiData> forgotPassword(@RequestBody Map<String,String> map) throws CustomGenericException{
+		UiData data =  new UiData();
+		if(map.get("type") != null && map.get("type").equals("vendor")) {
+			vendorService.sendPasswordResetMail(map);
+		}
+		else if(map.get("type") != null && map.get("type").equals("user")) {
+			userService.sendPasswordResetMail(map);
+		}
+		else {
+			throw new CustomGenericException("INVALID_USER_TYPE",HttpStatus.BAD_REQUEST);
+		}
+		
+		data.setMessage("SUCCESS");
+		data.setSuccess(true);
 		return new ResponseEntity<UiData>(data , HttpStatus.OK);
 	}
 

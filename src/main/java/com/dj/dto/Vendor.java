@@ -45,10 +45,10 @@ public class Vendor {
 	private String mobileNumber;
 	
 	@Column(name = "CATEGORY_ID")
-	private int categoryId;
+	private Integer categoryId;
 	
 	@Column(name = "STATUS")
-	private int status;
+	private Integer status;
 	
 	@Column(name = "CREATED_ON")
 	private Date createdOn;
@@ -72,7 +72,7 @@ public class Vendor {
 	private VendorVerification vendorVerification;
 	
 	@Column(name = "IS_EMAIL_VERIFIED")
-	private boolean isEmailVerified;
+	private Boolean isEmailVerified;
 	
 	
 	public Long getVendorId() {
@@ -170,6 +170,18 @@ public class Vendor {
 	}
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
+	}
+	public Boolean isEmailVerified() {
+		return isEmailVerified;
+	}
+	public void setEmailVerified(Boolean isEmailVerified) {
+		this.isEmailVerified = isEmailVerified;
+	}
+	public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	

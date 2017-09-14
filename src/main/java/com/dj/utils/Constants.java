@@ -14,5 +14,12 @@ public class Constants {
 	
 	public static final String DOMAIN_NAME = "email.host";
 	
-
+	//Email Template Names
+	
+	public static final String EMAIL_VERIFICATION = "velocity_mailTemplate.vm";
+	
+	public static final String FORGOT_PASSWORD = "velocity_forgotPassword.vm";
+	
+	
+	
 }

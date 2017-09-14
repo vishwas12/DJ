@@ -15,9 +15,12 @@ import com.dj.dto.Vendor;
 public interface VendorRepository extends JpaRepository<Vendor, Long>, CrudRepository<Vendor, Long> {
 
 	Long countByEmail(String email);
+	
 	@Modifying
 	@Query("update Vendor v SET v.isEmailVerified = true WHERE v.vendorId =:vendorId ")
 	@Transactional
 	void updateEmailVerificationStatus(@Param("vendorId") Long vendorId);
+	
+	Vendor findByEmail(String email);
 
 }

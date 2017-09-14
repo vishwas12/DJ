@@ -1,6 +1,7 @@
 package com.dj.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.dj.dto.AuthUser;
 import com.dj.dto.MusicType;
@@ -15,4 +16,5 @@ public interface UserService {
 	public List<MusicType> getAllMusicTypes();
 	public List<User> getMusicians(List<MusicType> musicTypes);
 	public boolean verifyEmail(Long id, String code);
+	public void sendPasswordResetMail(Map<String, String> map);
 }

@@ -3,6 +3,7 @@ package com.dj.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ import com.dj.dto.Vendor;
 import com.dj.dto.VendorVerification;
 import com.dj.security.CustomAuthenticationProvider;
 import com.dj.service.VendorService;
+import com.dj.utils.Constants;
 import com.dj.utils.EncryptionUtils;
 import com.dj.utils.Mailer;
 
@@ -58,7 +60,7 @@ public class VendorServiceImpl implements VendorService {
 				vendor.setCreatedOn(new Date());
 				vendor = vendorRepository.save(vendor);
 				insertAuthUser(vendor);
-				mailer.prepareEmail(vendor);
+				mailer.prepareEmail(vendor,Constants.EMAIL_VERIFICATION, "Account Verifications");
 				autoLoginUser(vendor);
 			}
 			else {
@@ -113,6 +115,22 @@ public class VendorServiceImpl implements VendorService {
 			throw new CustomGenericException("INVALID_EMAIL_VERIFICATION",HttpStatus.OK);
 		}
 		return isVerified;
+	}
+
+	@Override
+	public void sendPasswordResetMail(Map<String, String> map) {
+		try {
+			Vendor vendor = vendorRepository.findByEmail(map.get("email"));
+			
+			if(null != vendor) {
+				 mailer.prepareEmail(vendor, Constants.FORGOT_PASSWORD, "Reset Password");
+			}else {
+				throw new CustomGenericException("INVALID_EMAIL",HttpStatus.BAD_REQUEST);
+			}
+		}
+		catch(Exception e) {
+			throw new CustomGenericException("INVALID_EMAIL",HttpStatus.BAD_REQUEST);
+		}
 	}
 
 }
