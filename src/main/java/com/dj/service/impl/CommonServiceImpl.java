@@ -30,7 +30,7 @@ public class CommonServiceImpl implements CommonService{
 	Mailer mailer;
 
 	@Override
-	public void sendPasswordResetMail(String email) {
+	public void sendPasswordResetMail(String email) throws CustomGenericException{
 		
 		try {
 			User user = userRepository.findByEmail(email);

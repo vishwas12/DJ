@@ -58,4 +58,11 @@ public class UiData {
 		this.data = data;
 	}
 
+	@Override
+	public String toString() {
+		return "UiData [id=" + id + ", isSuccess=" + isSuccess + ", data=" + data + ", message=" + message + "]";
+	}
+	
+	
+
 }
