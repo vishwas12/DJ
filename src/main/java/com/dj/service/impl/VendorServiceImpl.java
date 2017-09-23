@@ -1,10 +1,9 @@
 package com.dj.service.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,14 +13,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.dj.application.exception.CustomGenericException;
 import com.dj.dao.AuthUserRepository;
+import com.dj.dao.RoleRepository;
 import com.dj.dao.UserRepository;
 import com.dj.dao.VendorRepository;
 import com.dj.dao.VendorVerificationRepository;
 import com.dj.dto.AuthUser;
+import com.dj.dto.Role;
 import com.dj.dto.Vendor;
 import com.dj.dto.VendorVerification;
 import com.dj.security.CustomAuthenticationProvider;
@@ -51,13 +51,19 @@ public class VendorServiceImpl implements VendorService {
 	@Autowired
 	VendorVerificationRepository vendorVerificationRepository;
 	
+	@Autowired
+	RoleRepository roleRepository;
+	
 	@Override
 	public void vendorSignUp(Vendor vendor) {
  
 		if(vendorRepository.countByEmail(vendor.getEmail()) < 1){
 			if(userRepository.countByEmail(vendor.getEmail()) < 1) {
 				vendor.setPassword(EncryptionUtils.passwordEncoder(vendor.getEmail(),vendor.getPassword()));
-				vendor.setCreatedOn(new Date());
+				Role role = roleRepository.findByRole(Constants.ROLE_VENDOR);
+				List<Role> roles =  new ArrayList<>();
+				roles.add(role);
+				vendor.setRoles(roles);
 				vendor = vendorRepository.save(vendor);
 				insertAuthUser(vendor);
 				mailer.prepareEmail(vendor,Constants.EMAIL_VERIFICATION, "Account Verifications");
@@ -73,11 +79,17 @@ public class VendorServiceImpl implements VendorService {
 	}
 	
 	private void insertAuthUser(Vendor vendor){
+		
 		AuthUser authUser = new AuthUser();
 		authUser.setEmail(vendor.getEmail());
 		authUser.setFirstName(vendor.getFirstName());
 		authUser.setLastName(vendor.getLastName());
 		authUser.setPassword(vendor.getPassword());
+		List<String> roles = new ArrayList<>();
+		for(Role role : vendor.getRoles()) {
+			roles.add(role.getRole());
+		}
+		authUser.setRoles(StringUtils.join(roles, ","));
 		authUserRepository.save(authUser);
 	}
 	

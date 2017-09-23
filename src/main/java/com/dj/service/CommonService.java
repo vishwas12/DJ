@@ -8,4 +8,6 @@ public interface CommonService {
 
 	void resetPassword(Map<String, String> map);
 
+	boolean verifyEmail(String email);
+
 }

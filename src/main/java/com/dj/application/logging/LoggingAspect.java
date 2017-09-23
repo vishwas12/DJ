@@ -26,8 +26,12 @@ public class LoggingAspect {
 			LOGGER.info("Invoking [ " + methodName + " ] with paramaters -->" +args.toString());
 			returnValue = pj.proceed();
 			LOGGER.debug("Exiting [ " + methodName + " ]");
-		} catch (Throwable e) {
+		}
+		catch (Throwable e) {
 			LOGGER.error("Caused By : ", e);
+			if(e instanceof CustomGenericException) {
+				throw new CustomGenericException(((CustomGenericException) e).getExceptionMsg(), HttpStatus.BAD_REQUEST);
+			}
 			throw new CustomGenericException(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		LOGGER.info("Exiting [ " + methodName + " ] with return value -->" + returnValue);

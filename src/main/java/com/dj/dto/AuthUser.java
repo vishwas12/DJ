@@ -27,8 +27,7 @@ public class AuthUser implements Serializable {
 	@Column(unique=true)
 	private String email;
 	private String password;
-	@Transient
-	private List<String> roles;
+	private String roles;
 	
 	public int getUserId() {
 		return userId;
@@ -60,11 +59,12 @@ public class AuthUser implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public List<String> getRoles() {
+	public String getRoles() {
 		return roles;
 	}
-	public void setRoles(List<String> roles) {
+	public void setRoles(String roles) {
 		this.roles = roles;
 	}
+
 	
 }

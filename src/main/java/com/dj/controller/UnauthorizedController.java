@@ -5,8 +5,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -115,6 +117,16 @@ public class UnauthorizedController {
 		commonService.resetPassword(map);
 		data.setMessage("SUCCESS");
 		data.setSuccess(true);
+		return new ResponseEntity<UiData>(data , HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/validateEmail",method =RequestMethod.GET)
+	public ResponseEntity<UiData> verifyEmail(@RequestParam String email) throws CustomGenericException{
+		UiData data =  new UiData();
+		boolean isAlreadyExists = commonService.verifyEmail(email);
+		data.setMessage("SUCCESS");
+		data.setSuccess(true);
+		data.setData(isAlreadyExists);
 		return new ResponseEntity<UiData>(data , HttpStatus.OK);
 	}
 

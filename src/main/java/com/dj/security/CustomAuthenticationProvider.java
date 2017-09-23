@@ -1,7 +1,10 @@
 package com.dj.security;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -20,6 +23,7 @@ import org.springframework.stereotype.Component;
 
 import com.dj.application.exception.CustomGenericException;
 import com.dj.dto.AuthUser;
+import com.dj.dto.Role;
 import com.dj.service.UserService;
 import com.dj.utils.EncryptionUtils;
 
@@ -56,11 +60,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         }else{
         	List<GrantedAuthority> grantedAuths = new ArrayList<>();
         	//fetch user roles from database
-        	List<String> roles = new ArrayList<String>();
-        	roles.add("ROLE_USER");
-            grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
-            user.setRoles(roles);
-            Authentication auth = new UsernamePasswordAuthenticationToken(user, password, grantedAuths);
+        	List<String> roles = Arrays.asList(user.getRoles().split(","));
+        	for(String role : roles) {
+        		grantedAuths.add(new SimpleGrantedAuthority(role));
+        	}
+            Authentication auth = new UsernamePasswordAuthenticationToken(user, password,grantedAuths);
             
     		return auth;
         }
@@ -79,5 +83,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		OAuth2RefreshToken refreshToken = accessToken.getRefreshToken();
 		authStore.removeRefreshToken(refreshToken);
 	}
+	
 
 }

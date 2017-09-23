@@ -73,4 +73,14 @@ public class CommonServiceImpl implements CommonService{
 		}
 	}
 
+	@Override
+	public boolean verifyEmail(String email) {
+		boolean isAlreadyExists = false;
+		if(vendorRepository.countByEmail(email) > 0 || userRepository.countByEmail(email) > 0){
+			isAlreadyExists =true;
+		}
+		
+		return isAlreadyExists;
+	}
+
 }
