@@ -84,6 +84,7 @@ public class UserServiceImpl implements UserService {
 		authUser.setFirstName(user.getFirstName());
 		authUser.setLastName(user.getLastName());
 		authUser.setPassword(user.getPassword());
+		authUser.setUserId(user.getUserId());
 		List<String> roles = new ArrayList<>();
 		for(Role role : user.getRoles()) {
 			roles.add(role.getRole());

@@ -1,10 +1,15 @@
 package com.dj.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +29,10 @@ public class Category {
 	
 	@Column(name ="IS_ACTIVE")
 	private Boolean isActive;
+	
+	@OneToMany(mappedBy ="category",fetch = FetchType.LAZY)
+	private Set<Vendor> vendors = new HashSet<>(0);
+	
 
 	public Long getCategoryId() {
 		return categoryId;

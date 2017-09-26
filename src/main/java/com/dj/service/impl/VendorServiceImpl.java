@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,17 +14,21 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dj.application.exception.CustomGenericException;
 import com.dj.dao.AuthUserRepository;
+import com.dj.dao.CategoryRepository;
 import com.dj.dao.RoleRepository;
 import com.dj.dao.UserRepository;
 import com.dj.dao.VendorRepository;
 import com.dj.dao.VendorVerificationRepository;
 import com.dj.dto.AuthUser;
+import com.dj.dto.Category;
 import com.dj.dto.Role;
 import com.dj.dto.Vendor;
 import com.dj.dto.VendorVerification;
+import com.dj.model.VendorDto;
 import com.dj.security.CustomAuthenticationProvider;
 import com.dj.service.VendorService;
 import com.dj.utils.Constants;
@@ -54,16 +59,23 @@ public class VendorServiceImpl implements VendorService {
 	@Autowired
 	RoleRepository roleRepository;
 	
+	@Autowired
+	CategoryRepository categoryRepository;
+	
 	@Override
+	@Transactional(transactionManager ="transactionManager")
 	public void vendorSignUp(Vendor vendor) {
  
 		if(vendorRepository.countByEmail(vendor.getEmail()) < 1){
 			if(userRepository.countByEmail(vendor.getEmail()) < 1) {
 				vendor.setPassword(EncryptionUtils.passwordEncoder(vendor.getEmail(),vendor.getPassword()));
+				
 				Role role = roleRepository.findByRole(Constants.ROLE_VENDOR);
 				List<Role> roles =  new ArrayList<>();
 				roles.add(role);
 				vendor.setRoles(roles);
+				Category category = categoryRepository.findOne(Integer.toUnsignedLong(vendor.getCategoryId()));
+				vendor.setCategory(category);
 				vendor = vendorRepository.save(vendor);
 				insertAuthUser(vendor);
 				mailer.prepareEmail(vendor,Constants.EMAIL_VERIFICATION, "Account Verifications");
@@ -85,6 +97,7 @@ public class VendorServiceImpl implements VendorService {
 		authUser.setFirstName(vendor.getFirstName());
 		authUser.setLastName(vendor.getLastName());
 		authUser.setPassword(vendor.getPassword());
+		authUser.setUserId(vendor.getVendorId());
 		List<String> roles = new ArrayList<>();
 		for(Role role : vendor.getRoles()) {
 			roles.add(role.getRole());
@@ -145,6 +158,18 @@ public class VendorServiceImpl implements VendorService {
 			throw new CustomGenericException("RESET_PASSWORD_TOKEN_EXPIRED",HttpStatus.OK);
 		}
 		return isVerified;
+	}
+
+	@Override
+	public VendorDto fetchDetails(Long id) {
+		Vendor vendor = vendorRepository.findVendorWithCategory(id);
+		
+		VendorDto dto = new VendorDto();
+		BeanUtils.copyProperties(vendor, dto,"status");
+		dto.setCategory(vendor.getCategory().getName());
+		dto.setCategoryId(vendor.getCategory().getCategoryId());
+		
+		return dto;
 	}
 
 }
