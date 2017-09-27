@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dj.application.exception.CustomGenericException;
 import com.dj.dto.Category;
 import com.dj.dto.UiData;
+import com.dj.model.LocationsDto;
 import com.dj.service.CategoryService;
 import com.dj.service.CommonService;
 import com.dj.service.UserService;
@@ -127,6 +128,15 @@ public class UnauthorizedController {
 		data.setMessage("SUCCESS");
 		data.setSuccess(true);
 		data.setData(isAlreadyExists);
+		return new ResponseEntity<UiData>(data , HttpStatus.OK);
+	}
+	@RequestMapping(value = "/fetchLocations",method =RequestMethod.GET)
+	public ResponseEntity<UiData> fetchLocations(@RequestParam String pinCode) throws CustomGenericException{
+		UiData data =  new UiData();
+		LocationsDto dto = commonService.fetchLocations(pinCode);
+		data.setMessage("SUCCESS");
+		data.setSuccess(true);
+		data.setData(dto);
 		return new ResponseEntity<UiData>(data , HttpStatus.OK);
 	}
 
