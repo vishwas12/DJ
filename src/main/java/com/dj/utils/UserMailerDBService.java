@@ -41,7 +41,7 @@ public class UserMailerDBService {
 				userVerification = new UserVerification();
 			}
 			String verificationCode = UUID.randomUUID().toString();
-			String link = env.getProperty(Constants.DOMAIN_NAME) + "verifyemail?code=" + verificationCode
+			String link = env.getProperty(Constants.DOMAIN_NAME) + "?purpose=verifyemail&code=" + verificationCode
 					+ "&type=user&userId=" + user.getUserId();
 			userVerification.setVerificationCodeCreatedDate(new Timestamp(System.currentTimeMillis()));
 			userVerification.setUser(user);
@@ -56,7 +56,7 @@ public class UserMailerDBService {
 				userVerification = new UserVerification();
 			}
 			String resetCode = UUID.randomUUID().toString();
-			String link = env.getProperty(Constants.DOMAIN_NAME) + "resetPassword?code=" + resetCode
+			String link = env.getProperty(Constants.DOMAIN_NAME) + "?purpose=resetPassword&code=" + resetCode
 					+ "&type=user&userId=" + user.getUserId();
 			userVerification.setResetPasswordCreatedDate(new Timestamp(System.currentTimeMillis()));
 			userVerification.setUser(user);

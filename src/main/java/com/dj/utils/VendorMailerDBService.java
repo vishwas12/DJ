@@ -41,7 +41,7 @@ public class VendorMailerDBService {
 			}
 
 			String verificationCode = UUID.randomUUID().toString();
-			String link = env.getProperty(Constants.DOMAIN_NAME) + "verifyemail?code=" + verificationCode
+			String link = env.getProperty(Constants.DOMAIN_NAME) + "?purpose=verifyemail&code=" + verificationCode
 					+ "&type=vendor&vendorId=" + vendor.getVendorId();
 			vendorVerification.setVerificationCode(verificationCode);
 			vendorVerification.setVendor(vendor);
@@ -55,7 +55,7 @@ public class VendorMailerDBService {
 				vendorVerification = new VendorVerification();
 			}
 			String resetCode = UUID.randomUUID().toString();
-			String link = env.getProperty(Constants.DOMAIN_NAME) + "resetPassword?code=" + resetCode
+			String link = env.getProperty(Constants.DOMAIN_NAME) + "?purpose=resetPassword&code=" + resetCode
 					+ "&type=vendor&vendorId=" + vendor.getVendorId();
 			vendorVerification.setResetPasswordCreatedDate(new Timestamp(System.currentTimeMillis()));
 			vendorVerification.setVendor(vendor);
