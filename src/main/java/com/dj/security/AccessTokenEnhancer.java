@@ -30,7 +30,7 @@ public class AccessTokenEnhancer implements TokenEnhancer {
 	     final Map<String, Object> additionalInformation = new HashMap<String, Object>();
 	     List<String> roles= new ArrayList<String>();
 	     roles.add("ROLE_USER");
-	     additionalInformation.put("roles", roles);
+	     additionalInformation.put("roles", authUser.getRoles().split(","));
 	     tempResult.setAdditionalInformation(additionalInformation);
 
 	     OAuth2AccessToken result = tempResult;
