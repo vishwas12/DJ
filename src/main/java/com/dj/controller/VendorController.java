@@ -1,6 +1,7 @@
 package com.dj.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +22,7 @@ import com.dj.application.exception.CustomGenericException;
 import com.dj.dto.AuthUser;
 import com.dj.dto.UiData;
 import com.dj.dto.Vendor;
+import com.dj.model.EquipmentDto;
 import com.dj.model.VendorDto;
 import com.dj.security.OAuthSession;
 import com.dj.service.VendorService;
@@ -64,6 +67,23 @@ public class VendorController {
 		try {
 			VendorDto vendor = vendorService.fetchDetails(user.getUserId());
 			data.setData(vendor);
+			data.setMessage("SUCCESS");
+			data.setSuccess(true);
+			return new ResponseEntity<UiData>(data, HttpStatus.OK);
+		} catch (CustomGenericException e) {
+			data.setMessage(e.getExceptionMsg());
+			data.setSuccess(false);
+			return new ResponseEntity<UiData>(data, HttpStatus.INTERNAL_SERVER_ERROR);
+
+		}
+
+	}
+	@RequestMapping(value = "/equipments/{categoryId}",method =RequestMethod.GET)
+	public ResponseEntity<UiData> fetchEquipments(@PathVariable("categoryId") Long categoryId) {
+		UiData data = new UiData();
+		try {
+			List<EquipmentDto> equipments = vendorService.fetchEquipments(categoryId);
+			data.setData(equipments);
 			data.setMessage("SUCCESS");
 			data.setSuccess(true);
 			return new ResponseEntity<UiData>(data, HttpStatus.OK);

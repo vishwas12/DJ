@@ -1,25 +1,23 @@
 package com.dj.dto;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "CATEGORY")
-public class Category {
+@Table(name = "EQUIPMENTS")
+public class Equipments {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name ="CATEGORY_ID")
-	private Long categoryId;
+	@Column(name ="EQUIPMENT_ID")
+	private Long equipmentId;
 	
 	@Column(name ="DESCRIPTION")
 	private String description;
@@ -30,19 +28,16 @@ public class Category {
 	@Column(name ="IS_ACTIVE")
 	private Boolean isActive;
 	
-	@OneToMany(mappedBy ="category",fetch = FetchType.LAZY)
-	private Set<Vendor> vendors = new HashSet<>(0);
-	
-	@OneToMany(mappedBy ="category",fetch = FetchType.LAZY)
-	private Set<Equipments> equipments = new HashSet<>(0);
-	
+	@ManyToOne(fetch =FetchType.LAZY)
+	@JoinColumn(name = "CATEGORY_ID")
+	private Category category;
 
-	public Long getCategoryId() {
-		return categoryId;
+	public Long getEquipmentId() {
+		return equipmentId;
 	}
 
-	public void setCategoryId(Long categoryId) {
-		this.categoryId = categoryId;
+	public void setEquipmentId(Long equipmentId) {
+		this.equipmentId = equipmentId;
 	}
 
 	public String getDescription() {
@@ -69,20 +64,14 @@ public class Category {
 		this.isActive = isActive;
 	}
 
-	public Set<Vendor> getVendors() {
-		return vendors;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setVendors(Set<Vendor> vendors) {
-		this.vendors = vendors;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
-
-	public Set<Equipments> getEquipments() {
-		return equipments;
-	}
-
-	public void setEquipments(Set<Equipments> equipments) {
-		this.equipments = equipments;
-	}
+	
+	
 
 }

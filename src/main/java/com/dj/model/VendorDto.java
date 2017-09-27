@@ -14,8 +14,9 @@ public class VendorDto implements Serializable{
 		private Long categoryId;
 		private Integer status;
 		private Date createdOn;
-		private Boolean isEmailVerified;
+		private Boolean isEmailVerified =false;
 		private String category;
+		private Boolean equipmentsExist =false;
 
 		public Long getVendorId() {
 			return vendorId;
@@ -104,5 +105,15 @@ public class VendorDto implements Serializable{
 		public void setCategory(String category) {
 			this.category = category;
 		}
+
+		public Boolean getEquipmentsExist() {
+			return equipmentsExist;
+		}
+
+		public void setEquipmentsExist(Boolean equipmentsExist) {
+			this.equipmentsExist = equipmentsExist;
+		}
+		
+		
 
 }

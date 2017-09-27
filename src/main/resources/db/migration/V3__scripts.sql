@@ -1,0 +1,3 @@
+INSERT INTO `CATEGORY` VALUES (1,'DJ',NULL,'DJ'),(2,'BAND',NULL,'BAND');
+INSERT INTO `ROLES` VALUES (1,'ROLE_USER'),(2,'ROLE_VENDOR');
+INSERT INTO `EQUIPMENTS` VALUES (1,'CD Player',NULL,'CD Player',1),(2,'Cartridges & Needles',NULL,'Cartridges & Needles',1),(3,'DJ Controllers',NULL,'DJ Controllers',1),(4,'DJ Digital Media Players',NULL,'DJ Digital Media Players',1),(5,'DJ Effects',NULL,'DJ Effects',1),(6,'DJ Mixer',NULL,'DJ Mixer',1),(7,'DJ Sets',NULL,'DJ Sets',1),(8,'Turntables',NULL,'Turntables',1),(9,'Lights',NULL,'Lights',1),(10,'Dance Floor',NULL,'Dance Floor',1);

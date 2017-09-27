@@ -1,6 +1,9 @@
 package com.dj.service;
 
+import java.util.List;
+
 import com.dj.dto.Vendor;
+import com.dj.model.EquipmentDto;
 import com.dj.model.VendorDto;
 
 public interface VendorService {
@@ -12,5 +15,7 @@ public interface VendorService {
 	boolean verifyPasswordLink(Long id, String code);
 
 	VendorDto fetchDetails(Long id);
+
+	List<EquipmentDto> fetchEquipments(Long categoryId);
 
 }

@@ -25,7 +25,7 @@ public interface VendorRepository extends JpaRepository<Vendor, Long>, CrudRepos
 	
 	Vendor findByVendorId(Long vendorId);
 
-	@Query("select v from Vendor v left join fetch v.category where v.vendorId = :id")
+	@Query("select v from Vendor v left join fetch v.category cat left join fetch cat.equipments where v.vendorId = :id")
 	Vendor findVendorWithCategory(@Param("id") Long id);
 
 }

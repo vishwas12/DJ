@@ -15,19 +15,23 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import com.dj.application.exception.CustomGenericException;
 import com.dj.dao.AuthUserRepository;
 import com.dj.dao.CategoryRepository;
+import com.dj.dao.EquipmentRepository;
 import com.dj.dao.RoleRepository;
 import com.dj.dao.UserRepository;
 import com.dj.dao.VendorRepository;
 import com.dj.dao.VendorVerificationRepository;
 import com.dj.dto.AuthUser;
 import com.dj.dto.Category;
+import com.dj.dto.Equipments;
 import com.dj.dto.Role;
 import com.dj.dto.Vendor;
 import com.dj.dto.VendorVerification;
+import com.dj.model.EquipmentDto;
 import com.dj.model.VendorDto;
 import com.dj.security.CustomAuthenticationProvider;
 import com.dj.service.VendorService;
@@ -61,6 +65,9 @@ public class VendorServiceImpl implements VendorService {
 	
 	@Autowired
 	CategoryRepository categoryRepository;
+	
+	@Autowired
+	EquipmentRepository equipmentRepository;
 	
 	@Override
 	@Transactional(transactionManager ="transactionManager")
@@ -168,8 +175,23 @@ public class VendorServiceImpl implements VendorService {
 		BeanUtils.copyProperties(vendor, dto,"status");
 		dto.setCategory(vendor.getCategory().getName());
 		dto.setCategoryId(vendor.getCategory().getCategoryId());
+		if(!CollectionUtils.isEmpty(vendor.getCategory().getEquipments())) {
+			dto.setEquipmentsExist(true);
+		}
 		
 		return dto;
+	}
+
+	@Override
+	public List<EquipmentDto> fetchEquipments(Long categoryId) {
+		List<Equipments> equipmentsList = equipmentRepository.findByCategoryId(categoryId);
+		List<EquipmentDto> equipmentDtos = new ArrayList<>();
+		for(Equipments equipments : equipmentsList) {
+			EquipmentDto dto =  new EquipmentDto();
+			BeanUtils.copyProperties(equipments, dto);
+			equipmentDtos.add(dto);
+		}
+		return equipmentDtos;
 	}
 
 }

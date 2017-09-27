@@ -93,6 +93,7 @@ public class Vendor implements Serializable{
 	@PrePersist
 	void prepersist() {
 		this.createdOn = new Date();
+		this.isEmailVerified =false;
 	}
 
 	public Long getVendorId() {
