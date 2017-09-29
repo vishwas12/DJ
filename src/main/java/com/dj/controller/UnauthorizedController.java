@@ -5,10 +5,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dj.application.exception.CustomGenericException;
-import com.dj.dto.Category;
 import com.dj.dto.UiData;
+import com.dj.model.CategoryDto;
 import com.dj.model.LocationsDto;
 import com.dj.service.CategoryService;
 import com.dj.service.CommonService;
@@ -45,7 +43,7 @@ public class UnauthorizedController {
 	public ResponseEntity<UiData> fetchCategoryList() {
 		UiData data =  new UiData();
 			try {
-				List<Category> categories = categoryService.fetchCategoryList();
+				List<CategoryDto> categories = categoryService.fetchCategoryList();
 				data.setMessage("SUCCESS");
 				data.setSuccess(true);
 				data.setData(categories);
