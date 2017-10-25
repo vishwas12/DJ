@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dj.application.exception.CustomGenericException;
+import com.dj.dto.Cities;
+import com.dj.dto.States;
 import com.dj.dto.UiData;
 import com.dj.model.CategoryDto;
 import com.dj.model.LocationsDto;
@@ -128,13 +130,34 @@ public class UnauthorizedController {
 		data.setData(isAlreadyExists);
 		return new ResponseEntity<UiData>(data , HttpStatus.OK);
 	}
-	@RequestMapping(value = "/fetchLocations",method =RequestMethod.GET)
+	
+	@RequestMapping(value = "/fetchByPincode",method =RequestMethod.GET)
 	public ResponseEntity<UiData> fetchLocations(@RequestParam String pinCode) throws CustomGenericException{
 		UiData data =  new UiData();
 		LocationsDto dto = commonService.fetchLocations(pinCode);
 		data.setMessage("SUCCESS");
 		data.setSuccess(true);
 		data.setData(dto);
+		return new ResponseEntity<UiData>(data , HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/getStates",method =RequestMethod.GET)
+	public ResponseEntity<UiData> getAllStates() throws CustomGenericException{
+		UiData data =  new UiData();
+		List<States> list = commonService.getAllStates();
+		data.setMessage("SUCCESS");
+		data.setSuccess(true);
+		data.setData(list);
+		return new ResponseEntity<UiData>(data , HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/getCitiesByStateId",method =RequestMethod.GET)
+	public ResponseEntity<UiData> getCitiesByStateId(@RequestParam long stateId) throws CustomGenericException{
+		UiData data =  new UiData();
+		List<Cities> list = commonService.getCitiesByStateId(stateId);
+		data.setMessage("SUCCESS");
+		data.setSuccess(true);
+		data.setData(list);
 		return new ResponseEntity<UiData>(data , HttpStatus.OK);
 	}
 

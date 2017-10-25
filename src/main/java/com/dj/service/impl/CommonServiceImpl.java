@@ -1,9 +1,7 @@
 package com.dj.service.impl;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import com.dj.application.exception.CustomGenericException;
+import com.dj.dao.CitiesRepository;
 import com.dj.dao.LocationsRepository;
+import com.dj.dao.StatesRepository;
 import com.dj.dao.UserRepository;
 import com.dj.dao.VendorRepository;
+import com.dj.dto.Cities;
 import com.dj.dto.Locations;
+import com.dj.dto.States;
 import com.dj.dto.User;
 import com.dj.dto.Vendor;
 import com.dj.model.LocationsDto;
@@ -38,6 +40,12 @@ public class CommonServiceImpl implements CommonService{
 	
 	@Autowired
 	LocationsRepository locationsRepository;
+	
+	@Autowired
+	StatesRepository statesRepository;
+	
+	@Autowired
+	CitiesRepository citiesRepository;
 
 	@Override
 	public void sendPasswordResetMail(String email) throws CustomGenericException{
@@ -98,20 +106,24 @@ public class CommonServiceImpl implements CommonService{
 
 		List<Locations> list = locationsRepository.findByPinCode(pinCode);
 		LocationsDto dto =  new LocationsDto();
-		Set<String> localities = new HashSet<>();
 		if(!CollectionUtils.isEmpty(list)) {
 			dto.setState(list.get(0).getState().getName());
 			dto.setDistrict(list.get(0).getDistrict());
+			dto.setStateId(list.get(0).getState().getStateId());
 		}
-		for(Locations locations : list) {
-			localities.add(locations.getFirstLocality());
-			localities.add(locations.getSecondLocality());
-			localities.add(locations.getThirdLocality());
-			localities.add(locations.getSubDistrict());
-			localities.add(locations.getVillage());
-		}
-		dto.setLocalities(localities);
 		return dto;
+	}
+
+	@Override
+	public List<States> getAllStates() {
+		List<States> list = statesRepository.findAll();
+		return list;
+	}
+
+	@Override
+	public List<Cities> getCitiesByStateId(long stateId) {
+		List<Cities> list = citiesRepository.findByStateId(stateId);
+		return list;
 	}
 
 }

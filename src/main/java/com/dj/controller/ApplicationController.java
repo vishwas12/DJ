@@ -63,7 +63,7 @@ public class ApplicationController {
 	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
-	public ResponseEntity<UiData> logout(HttpServletRequest request){
+	public ResponseEntity<UiData> logout(){
 		//String accessToken = request.getHeader("accessToken");
 		customAuthenticationProvider.logoutUser();
 		UiData data = new UiData();

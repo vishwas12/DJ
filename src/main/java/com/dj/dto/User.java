@@ -37,7 +37,9 @@ public class User implements Serializable {
 	private Long userId;
 	private String firstName;
 	private String lastName;
-	private String userAddress;
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="address_id")
+	private Address userAddress;
 	@Column(unique = true)
 	private String email;
 	private String password;
@@ -127,11 +129,11 @@ public class User implements Serializable {
 		this.firstName = userName;
 	}
 
-	public String getUserAddress() {
+	public Address getUserAddress() {
 		return userAddress;
 	}
 
-	public void setUserAddress(String userAddress) {
+	public void setUserAddress(Address userAddress) {
 		this.userAddress = userAddress;
 	}
 

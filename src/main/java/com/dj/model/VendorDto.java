@@ -3,12 +3,14 @@ package com.dj.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.dj.dto.Address;
+
 public class VendorDto implements Serializable{
 
 		private Long vendorId;
 		private String firstName;
 		private String lastName;
-		private String address;
+		private Address address;
 		private String email;
 		private String mobileNumber;
 		private Long categoryId;
@@ -42,11 +44,11 @@ public class VendorDto implements Serializable{
 			this.lastName = lastName;
 		}
 
-		public String getAddress() {
+		public Address getAddress() {
 			return address;
 		}
 
-		public void setAddress(String address) {
+		public void setAddress(Address address) {
 			this.address = address;
 		}
 

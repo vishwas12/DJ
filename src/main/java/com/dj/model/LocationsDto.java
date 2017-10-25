@@ -5,6 +5,7 @@ import java.util.Set;
 public class LocationsDto {
 	
 	private String state;
+	private Long stateId;
 	private String district;
 	private Set<String> localities;
 	public String getState() {
@@ -25,7 +26,10 @@ public class LocationsDto {
 	public void setLocalities(Set<String> localities) {
 		this.localities = localities;
 	}
-	
-	
-
+	public Long getStateId() {
+		return stateId;
+	}
+	public void setStateId(Long stateId) {
+		this.stateId = stateId;
+	}
 }

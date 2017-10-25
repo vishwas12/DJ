@@ -26,8 +26,8 @@ public class States {
 	@Column(name = "IS_ACTIVE")
 	private Boolean IS_ACTIVE;
 	
-	@OneToMany(mappedBy ="state",fetch = FetchType.LAZY)
-	private Set<Locations> locations = new HashSet<>(0);
+	/*@OneToMany(mappedBy ="state",fetch = FetchType.LAZY)
+	private Set<Locations> locations = new HashSet<>(0);*/
 
 	public Long getStateId() {
 		return stateId;
@@ -53,12 +53,12 @@ public class States {
 		IS_ACTIVE = iS_ACTIVE;
 	}
 
-	public Set<Locations> getLocations() {
+	/*public Set<Locations> getLocations() {
 		return locations;
 	}
 
 	public void setLocations(Set<Locations> locations) {
 		this.locations = locations;
-	}
+	}*/
 	
 }

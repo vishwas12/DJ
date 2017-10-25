@@ -38,8 +38,9 @@ public class Vendor implements Serializable{
 	@Column(name = "LAST_NAME")
 	private String lastName;
 
-	@Column(name = "ADDRESS")
-	private String address;
+	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@JoinColumn(name="address_id")
+	private Address address;
 
 	@Column(name = "EMAIL")
 	private String email;
@@ -120,11 +121,11 @@ public class Vendor implements Serializable{
 		this.lastName = lastName;
 	}
 
-	public String getAddress() {
+	public Address getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(Address address) {
 		this.address = address;
 	}
 
